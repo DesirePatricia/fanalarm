@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import React, { Component, useEffect, useState } from 'react';
+import Login from "./Login"
+import Dashboard from "./Dashboard"
 
-import './custom.css'
+function App() {
 
-export default class App extends Component {
-  static displayName = App.name;
+    const [token, setToken] = useState("")
 
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
-    );
-  }
+    useEffect(() => {
+        const hash = window.location.hash
+        let token = window.localStorage.getItem("token")
+
+        // getToken()
+
+
+        if (!token && hash) {
+            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+
+            window.location.hash = ""
+            window.localStorage.setItem("token", token)
+        }
+
+        setToken(token)
+
+    }, [])
+
+
+    return token ? <Dashboard code={token} /> : <Login />
 }
+
+export default App
