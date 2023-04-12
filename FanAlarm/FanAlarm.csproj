@@ -13,6 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.23" />
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="InstagramApiSharp" Version="1.7.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +36,11 @@
     <None Remove="Repositories\Interfaces\" />
     <None Remove="Repositories\Implementations\" />
     <None Remove="AutoMapper" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="ClientApp\src\utils\" />
+    <None Remove="InstaSharp" />
+    <None Remove="InstagramApiSharp" />
+    <None Remove="py_scripts\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +56,8 @@
     <Folder Include="Repositories\" />
     <Folder Include="Repositories\Interfaces\" />
     <Folder Include="Repositories\Implementations\" />
+    <Folder Include="ClientApp\src\utils\" />
+    <Folder Include="py_scripts\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
