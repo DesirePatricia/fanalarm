@@ -44,7 +44,7 @@ def convertToBinaryData(filename):
     return binaryData
 
 
-def insertBLOB(photo):
+def insertBLOB(photo, caption):
     print("Inserting BLOB into python_employee table")
     try:
 
@@ -55,7 +55,7 @@ def insertBLOB(photo):
         empPicture = convertToBinaryData(photo)
 
         # Convert data into tuple format
-        insert_blob_tuple = (empPicture, "")
+        insert_blob_tuple = (empPicture, caption)
         result = cursor.execute(sql_insert_blob_query, insert_blob_tuple)
         connection.commit()
         print("Image inserted successfully as a BLOB into posts_fanalarm table", result)
@@ -65,7 +65,6 @@ def insertBLOB(photo):
 
 def closeConnection():
         if connection.is_connected():
-            connection.cursor.close()
             connection.close()
             print("MySQL connection is closed")
 
@@ -127,11 +126,14 @@ for image in images_links:
     for imagethis in images_this:
         imagethis = imagethis.get_attribute("src")
         if imagethis.startswith("https://scontent.cdninstagram.com/"):
-            save_as = os.path.join(path, keyword + str(counter) + '.jpg')
-            image_download = wget.download(imagethis, save_as)
-            insertBLOB(image_download)
-            print("here 2")
-            counter += 1
+            caption = driver.find_element(By.TAG_NAME, "h1").text
+            keywords = ["ticket", "tix", "tour", "concert", "show", "dates"]
+            if any([x in caption for x in keywords]):
+                save_as = os.path.join(path, keyword + str(counter) + '.jpg')
+                image_download = wget.download(imagethis, save_as)
+                insertBLOB(image_download, caption)
+                print("here 2")
+                counter += 1
 
 
 time.sleep(30)
