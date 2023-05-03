@@ -98,7 +98,7 @@ if element_notnow.is_displayed():
     alert = WebDriverWait(driver, 15).until(EC.element_to_be_clickable(
         (By.XPATH, '//button[contains(text(), "Not Now")]'))).click()
 
-keyword = "jedcal"
+keyword = "songsbyjoan"
 driver.get('https://www.instagram.com/'+ keyword)
 
 yElem = WebDriverWait(driver, 15).until(
@@ -129,6 +129,7 @@ for image in images_links:
             caption = driver.find_element(By.TAG_NAME, "h1").text
             keywords = ["ticket", "tix", "tour", "concert", "show", "dates"]
             if any([x in caption for x in keywords]):
+                print("here 1")
                 save_as = os.path.join(path, keyword + str(counter) + '.jpg')
                 image_download = wget.download(imagethis, save_as)
                 insertBLOB(image_download, caption)
@@ -136,6 +137,5 @@ for image in images_links:
                 counter += 1
 
 
-time.sleep(30)
 driver.close()
 closeConnection()

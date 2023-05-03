@@ -4,6 +4,8 @@ import base64
 import mysql.connector
 from mysql.connector import Error
 from config import SQL_DB, SQL_HOSTNAME, SQL_PASSWORD, SQL_USERNAME
+from PIL import Image
+import pytesseract
 
 
 def create_server_connection(host_name, user_name, user_password, data_base):
@@ -34,13 +36,14 @@ def readBLOB(emp_id):
 
         cursor.execute(sql_fetch_blob_query, (emp_id,))
         record = cursor.fetchall()
+        print(record)
         for row in record:
             print("Id = ", row[0], )
             image = row[1]
             print("Storing employee image and bio-data on disk \n")
-        with open("imageToSave.png", "wb") as fh:
-            fh.write(image)
-            
+            with open("test.png", "wb") as fh:
+                fh.write(image)
+            print(pytesseract.image_to_string(Image.open('test.png')))
 
     except mysql.connector.Error as error:
         print("Failed to read BLOB data from MySQL table {}".format(error))
@@ -52,4 +55,4 @@ def readBLOB(emp_id):
             print("MySQL connection is closed")
 
 
-readBLOB(1)
+readBLOB(18)
