@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d2ba11ea.css",
+    "main.js": "/static/js/main.d154910c.js",
+    "static/media/fabulous-tickets.png": "/static/media/fabulous-tickets.4f781bc93625084698a8.png",
+    "static/media/LoginContainer.png": "/static/media/LoginContainer.472897a3b3eca2823d81.png",
+    "index.html": "/index.html",
+    "main.d2ba11ea.css.map": "/static/css/main.d2ba11ea.css.map",
+    "main.d154910c.js.map": "/static/js/main.d154910c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d2ba11ea.css",
+    "static/js/main.d154910c.js"
+  ]
+}
