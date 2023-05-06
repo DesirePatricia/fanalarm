@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from 'react';
-import Login from "./Login"
+import Login from "./components/Login/Login"
 import Dashboard from "./Dashboard"
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";
