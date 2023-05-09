@@ -4,6 +4,11 @@
   height: 100%;
   padding-bottom: 5%;
 }
+@media (max-width: 505px) {
+  .loginContainer {
+    font-size: 16px;
+  }
+}
 
 .loginContainerImg {
   position: absolute;
@@ -165,6 +170,10 @@
 .loginContainerWrapper {
   position: relative;
   display: flex;
+  -ms-box-orient: horizontal;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -webkit-inline-box;
   flex-wrap: wrap;
   width: 100%;
 }/*# sourceMappingURL=Login.css.map */

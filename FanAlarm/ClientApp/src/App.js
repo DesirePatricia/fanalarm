@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import Login from "./components/Login/Login"
 import Dashboard from "./Dashboard"
 import { reducerCases } from "./utils/Constants";

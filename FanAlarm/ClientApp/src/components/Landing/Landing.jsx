@@ -4,7 +4,7 @@ import './Landing.css'
 
 export default function Landing() {
 
-    return (<>
+    return (
         <div className='homeBackground'>
             <img className='ticketsImg' src={tickets} />
             <div className='homeTitleContainer'>
@@ -12,6 +12,5 @@ export default function Landing() {
                 <div className='homeSubtitle'>get concert alerts for your favorite artists never miss a concert again</div>
             </div>
         </div>
-    </>
     );
 }
