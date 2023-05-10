@@ -141,3 +141,37 @@
     flex-wrap: wrap;
     width:100%;
 }
+
+.modalStyle .ant-modal-content {
+    background-color: #5B8E7D;
+    color:#FBF2C5;
+}
+.modalStyle .ant-modal-header {
+    background-color: #5B8E7D;
+}
+
+.modalStyle .ant-modal-title{
+        color: #FBF2C5;
+}
+
+.modalStyle .ant-form-item-required{
+    color:#FBF2C5 !important;
+    &::before{
+        color: #FBF2C5 !important;
+    }
+}
+
+.modalStyle .ant-btn{
+    background-color: #FBF2C5;
+    color: #5B8E7D;
+        @media(min-width: 595px) {
+            width: 70%;
+            margin-left: 110%;
+        }
+}
+
+.modalStyle .ant-input{
+    padding: 7px 30px;
+    width: 80%;
+    margin-left: 5%;
+}

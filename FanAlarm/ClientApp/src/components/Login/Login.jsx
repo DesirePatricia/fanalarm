@@ -68,7 +68,8 @@ export default function Login() {
                     <button className="loginButton btn btn-success btn-lg" onClick={showModal}>
                         Subscribe for Updates
                     </button>
-                    <Modal title="Subscribe for updates" open={isModalOpen} onCancel={handleCancel} footer={[]}>
+                    <Modal title="Subscribe for updates" open={isModalOpen} className="modalStyle"
+                        onCancel={handleCancel} footer={[]}>
                         <Formik
                             initialValues={{
                                 email: ''
