@@ -53,7 +53,7 @@ export default function Login() {
             className="loginContainer"
             style={{ minHeight: "100vh" }}
         >
-                <div className="loginContainerWrapper"><img className='loginContainerImg' src={loginContainerImage} />
+                <div className="loginContainerWrapper"><img className='loginContainerImg' src={loginContainerImage} alt="fanalarm sync with spotify" />
                     <div className="loginContainerText">
                         <div className="loginContainerTitle">Integrate with Spotify</div>
                         <div className="loginContainerSubtitle">Sync with Spotify so Fan Alarm can find
