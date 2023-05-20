@@ -60,16 +60,11 @@ export default function Login() {
                         all the artists you’d love to see in concert</div>
                     </div>
                 </div>
-                <div>
+                <div className="loginButtonForm">
                     {/*<a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
                         Sync with Spotify
                     </a>
                     */}
-                    <button className="loginButton btn btn-success btn-lg" onClick={showModal}>
-                        Subscribe for Updates
-                    </button>
-                    <Modal title="Subscribe for updates" open={isModalOpen} className="modalStyle"
-                        onCancel={handleCancel} footer={[]}>
                         <Formik
                             initialValues={{
                                 email: ''
@@ -98,6 +93,7 @@ export default function Login() {
                                 <Form.Item
                                     label="Email"
                                     name="email"
+                                    className='form-email'
                                     onChange={handleChange}
                                     value={values.email}
                                     rules={[
@@ -115,13 +111,12 @@ export default function Login() {
                                         span: 8,
                                     }}
                                 >
-                                    <Button type="primary" htmlType="submit">
-                                        Submit
-                                    </Button>
+                                    <button className="waitlistButton btn btn-success btn-lg" type="primary" htmltype="submit">
+                                        Join Waitlist
+                                    </button>
                                 </Form.Item>
                             </Form>)}
                         </Formik>
-                    </Modal>
                 </div>
         </div>
         </>

@@ -50,6 +50,27 @@
     }
 }
 
+.loginButtonForm{
+    margin-top: 45%;
+    position: relative !important;
+    @media(max-width: 1065px) {
+            margin-top: 60%;
+        }
+}
+
+.form-email > .ant-form-item-row{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-button {
+    display: block !important;
+    margin-left: 40%;
+    @media(max-width: 575px){
+        margin-left: 35%;
+    }
+}
+
 .loginContainerText{
     z-index: 100;
     position: absolute;
@@ -142,36 +163,40 @@
     width:100%;
 }
 
-.modalStyle .ant-modal-content {
-    background-color: #5B8E7D;
-    color:#FBF2C5;
-}
-.modalStyle .ant-modal-header {
-    background-color: #5B8E7D;
-}
-
-.modalStyle .ant-modal-title{
-        color: #FBF2C5;
-}
-
-.modalStyle .ant-form-item-required{
-    color:#FBF2C5 !important;
+.form-email .ant-form-item-required{
+    color:#5B8E7D !important;
     &::before{
-        color: #FBF2C5 !important;
+        color: #5B8E7D !important;
     }
 }
 
-.modalStyle .ant-btn{
-    background-color: #FBF2C5;
-    color: #5B8E7D;
-        @media(min-width: 595px) {
-            width: 70%;
-            margin-left: 110%;
-        }
-}
-
-.modalStyle .ant-input{
+.form-email .ant-input{
     padding: 7px 30px;
     width: 80%;
     margin-left: 5%;
+}
+
+.waitlistButton{
+    background-color: #5B8E7D;
+    font-family: 'Futura';
+    color: #FFFFFF;
+    font-size: 32px;
+    text-align: center;
+    border-radius: 10px;
+    display: block;
+    @media(max-width: 905px){
+        font-size: 30px;
+    }
+
+    @media(max-width: 705px) and (min-width: 605px) {
+        font-size: 26px;
+    }
+    
+    @media(max-width: 605px)and (min-width:450px) {
+        font-size: 20px;
+    }
+    
+    @media(max-width: 450px) {
+        font-size: 16px;
+    }
 }
