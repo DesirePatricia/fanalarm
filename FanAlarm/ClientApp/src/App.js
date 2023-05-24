@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Login from "./components/Login/Login"
-import Dashboard from "./Dashboard"
+import Dashboard from "./components/Dashboard/Dashboard"
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";

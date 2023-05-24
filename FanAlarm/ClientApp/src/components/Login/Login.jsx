@@ -9,11 +9,11 @@ import { putData} from '../../AwsFunctions';
 export default function Login() {
     const key = 'updatable';
     const [isModalOpen, setIsModalOpen] = useState(false);
-    /*const CLIENT_ID = "2b13915048a841b4b878f0287977a897"
+    const CLIENT_ID = "2b13915048a841b4b878f0287977a897"
     const REDIRECT_URI = "https://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
-    const SCOPE = "user-top-read"*/
+    const SCOPE = "user-top-read"
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -61,62 +61,9 @@ export default function Login() {
                     </div>
                 </div>
                 <div className="loginButtonForm">
-                    {/*<a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
+                    <a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
                         Sync with Spotify
                     </a>
-                    */}
-                        <Formik
-                            initialValues={{
-                                email: ''
-                            }}
-                            onSubmit={(values) => {
-                                addDataToDynamoDB(values.email)
-                            }}
-                            
-                        >{({
-                            values,
-                            errors,
-                            touched,
-                            handleChange,
-                            handleBlur,
-                            handleSubmit,
-                            isSubmitting,
-                            onFinishFailed
-                        }) => (
-                            <Form
-                                className="login-form"
-                                onSubmit={handleSubmit}
-                                initialValues={values}
-                                onFinish={handleSubmit}
-                                onFinishFailed={onFinishFailed}
-                            >
-                                <Form.Item
-                                    label="Email"
-                                    name="email"
-                                    className='form-email'
-                                    onChange={handleChange}
-                                    value={values.email}
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your email!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item
-                                    className='form-button'
-                                    wrapperCol={{
-                                        span: 8,
-                                    }}
-                                >
-                                    <button className="waitlistButton btn btn-success btn-lg" type="primary" htmltype="submit">
-                                        Join Waitlist
-                                    </button>
-                                </Form.Item>
-                            </Form>)}
-                        </Formik>
                 </div>
         </div>
         </>
