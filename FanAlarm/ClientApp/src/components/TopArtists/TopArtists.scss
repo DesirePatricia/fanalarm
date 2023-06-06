@@ -1,0 +1,59 @@
+.topArtists-wrapper{
+    background: #FBF2C5;
+}
+
+.topArtists-lists{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.topArtists-title{
+    padding-top: 7%;
+    padding-bottom: 2%;
+    text-align: center;
+    font-family: 'Futura';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    color: #5B8E7D;
+}
+
+.topArtists-artist{
+    width: 805px;
+    background: rgba(91, 142, 125, 0.46);
+    border-radius: 12px;
+    margin: 2%;
+    padding: 2%;
+    text-align: left;
+}
+
+.topArtists-artist-num{
+    display: inline-block;
+    font-family: 'Futura';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 43px;
+    color: #000000;
+    margin: 0 2%;
+}
+
+.topArtists-artist-name {
+    display: inline-block;
+    font-family: 'Futura';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 42px;
+    color: #000000;
+    margin: 0 8%;
+}
+
+.topArtists-artist-more{
+    margin-right: 1%;
+    width: 2em !important;
+    height: 2em !important;
+}
