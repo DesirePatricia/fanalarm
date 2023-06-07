@@ -5,6 +5,7 @@
 .topArtists-lists{
     list-style-type: none;
     padding: 0;
+    padding-bottom: 8%;
     margin: 0;
     text-align: center;
     text-align: -webkit-center;
@@ -19,6 +20,12 @@
     font-weight: 700;
     font-size: 64px;
     color: #5B8E7D;
+    @media(max-width:670px)  and (min-width: 510px){
+        font-size: 45px;
+    }
+    @media(max-width: 510px){
+        font-size: 34px;
+    }
 }
 
 .topArtists-artist{
@@ -28,6 +35,15 @@
     margin: 2%;
     padding: 2%;
     text-align: left;
+    @media (max-width: 850px) and (min-width:670px) {
+        width: 605px;
+    }
+    @media(max-width: 670px) and (min-width:450px){
+        width: 405px;
+    }
+    @media(max-width:450px){
+        width: 280px;
+    }
 }
 
 .topArtists-artist-num{
@@ -39,6 +55,12 @@
     line-height: 43px;
     color: #000000;
     margin: 0 2%;
+    @media (max-width: 905px) and (min-width:450px){
+        font-size: 28px;
+    }
+    @media (max-width:450px) {
+        font-size: 22px;
+    }
 }
 
 .topArtists-artist-name {
@@ -50,10 +72,25 @@
     line-height: 42px;
     color: #000000;
     margin: 0 8%;
+    @media (max-width: 905px) and (min-width:450px){
+        font-size: 28px;
+        margin: 0 5%;
+    }
+    @media (max-width:450px) {
+        font-size: 22px;
+    }
 }
 
 .topArtists-artist-more{
     margin-right: 1%;
     width: 2em !important;
     height: 2em !important;
+    @media (max-width: 850px) and (min-width:450px){
+        width: 1.5em !important;
+        height: 1.5em !important;
+    }
+    @media (max-width:450px){
+        width: 1em !important;
+        height: 1em !important;
+    }
 }

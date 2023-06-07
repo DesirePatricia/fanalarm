@@ -5,6 +5,7 @@
 .topArtists-lists {
   list-style-type: none;
   padding: 0;
+  padding-bottom: 8%;
   margin: 0;
   text-align: center;
   text-align: -webkit-center;
@@ -20,6 +21,16 @@
   font-size: 64px;
   color: #5B8E7D;
 }
+@media (max-width: 670px) and (min-width: 510px) {
+  .topArtists-title {
+    font-size: 45px;
+  }
+}
+@media (max-width: 510px) {
+  .topArtists-title {
+    font-size: 34px;
+  }
+}
 
 .topArtists-artist {
   width: 805px;
@@ -28,6 +39,21 @@
   margin: 2%;
   padding: 2%;
   text-align: left;
+}
+@media (max-width: 850px) and (min-width: 670px) {
+  .topArtists-artist {
+    width: 605px;
+  }
+}
+@media (max-width: 670px) and (min-width: 450px) {
+  .topArtists-artist {
+    width: 405px;
+  }
+}
+@media (max-width: 450px) {
+  .topArtists-artist {
+    width: 280px;
+  }
 }
 
 .topArtists-artist-num {
@@ -40,6 +66,16 @@
   color: #000000;
   margin: 0 2%;
 }
+@media (max-width: 905px) and (min-width: 450px) {
+  .topArtists-artist-num {
+    font-size: 28px;
+  }
+}
+@media (max-width: 450px) {
+  .topArtists-artist-num {
+    font-size: 22px;
+  }
+}
 
 .topArtists-artist-name {
   display: inline-block;
@@ -51,9 +87,32 @@
   color: #000000;
   margin: 0 8%;
 }
+@media (max-width: 905px) and (min-width: 450px) {
+  .topArtists-artist-name {
+    font-size: 28px;
+    margin: 0 5%;
+  }
+}
+@media (max-width: 450px) {
+  .topArtists-artist-name {
+    font-size: 22px;
+  }
+}
 
 .topArtists-artist-more {
   margin-right: 1%;
   width: 2em !important;
   height: 2em !important;
+}
+@media (max-width: 850px) and (min-width: 450px) {
+  .topArtists-artist-more {
+    width: 1.5em !important;
+    height: 1.5em !important;
+  }
+}
+@media (max-width: 450px) {
+  .topArtists-artist-more {
+    width: 1em !important;
+    height: 1em !important;
+  }
 }/*# sourceMappingURL=TopArtists.css.map */

@@ -19,9 +19,12 @@ export default function Dashboard({ code }) {
     return (<>
                 <div className='topArists-header'>
                     <div className='topArtists-header-title'>Fan Alarm</div>
+                    <button className='topArtists-button' onClick={logout}>Logout</button>
                 </div>
                 <TopArtists/>
-                <button onClick={logout}>Logout</button>
+                <div className='topArtists-footer'>
+                    <div className='footer-fanalarm-title'>Fan Alarm</div>
+                </div>
         </>
         );
 }

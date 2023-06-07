@@ -8,4 +8,43 @@
     color: white;
     text-shadow: -6px 6px #BC4B51;
     padding: 1%;
+    @media(max-width:670px) {
+        font-size: 30px;
+    }
+}
+
+.topArtists-footer{
+    background: #F4A259;
+}
+
+.topArtists-button{
+    align-items: right;
+    background-color: #5B8E7D;
+    margin-left: 95%;
+    border: 0px;
+    font-family: 'Futura';
+    color: #FFFFFF;
+    font-size: 18px;
+    @media(max-width: 1345px) and (min-width:820px) {
+        margin-left: 90%;
+    }
+    @media(max-width:820px) and (min-width:570px) {
+        margin-left: 88%;
+    }
+    @media(max-width:570px) and (min-width:450px){
+        margin-left: 85%;
+    }
+    @media (max-width:450px) {
+        margin-left: 81%;
+    }
+}
+
+.footer-fanalarm-title{
+    font-family: "Futura";
+    font-size: 40px;
+    color: white;
+    text-shadow: -6px 6px #BC4B51;
+    padding: 1%;
+    padding-top: 10%;
+    text-align: right;
 }

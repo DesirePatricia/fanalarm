@@ -38,13 +38,13 @@ export default function TopArtists() {
                     return (
                         <li className="topArtists-artist" key={id}>
                             <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-                                <Grid item xs={6} xsoffset={3} md={2} mdoffset={0}>
+                                <Grid item xs={2} xsoffset={0} md={2} mdoffset={0}>
                                     <div className="topArtists-artist-num">{totalArtists}</div> 
                                 </Grid>
-                                <Grid item xs={6} xsoffset={3} md={9} mdoffset={0}>
+                                <Grid item xs={8} xsoffset={0} md={9} mdoffset={0}>
                                     <div className="topArtists-artist-name">{name}</div>
                                 </Grid>
-                                <Grid item xs={6} xsoffset={3} md={1} mdoffset="auto">
+                                <Grid item xs={2} xsoffset={0} md={1} mdoffset="auto">
                                     <MoreHorizIcon className="topArtists-artist-more" />
                                 </Grid>
                             </Grid>
