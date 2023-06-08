@@ -25,6 +25,15 @@ export default function Login() {
             description: 'Email: ' + email + ' was added.',
         });
     };
+    function validateEmail(value) {
+        let error;
+        if (!value) {
+            error = 'Required';
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+            error = 'Invalid email address';
+        }
+        return error;
+    }
 
     const openNotificationError = () => {
         notification.open({
@@ -72,7 +81,7 @@ export default function Login() {
                             onSubmit={(values) => {
                                 addDataToDynamoDB(values.email)
                             }}
-                            
+                            validate={validateEmail}
                         >{({
                             values,
                             errors,
