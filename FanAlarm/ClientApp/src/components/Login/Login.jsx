@@ -5,18 +5,16 @@ import loginContainerImage from "../../images/LoginContainer.png";
 import { Formik } from 'formik';
 import { Button, Input, Form, notification, Modal } from 'antd';
 import { putData} from '../../AwsFunctions';
+import * as Yup from 'yup';
+
 
 export default function Login() {
     const key = 'updatable';
-    const [isModalOpen, setIsModalOpen] = useState(false);
     /*const CLIENT_ID = "2b13915048a841b4b878f0287977a897"
     const REDIRECT_URI = "https://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"*/
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
 
     const openNotification = (email) => {
         notification.open({
@@ -25,27 +23,7 @@ export default function Login() {
             description: 'Email: ' + email + ' was added.',
         });
     };
-    function validateEmail(value) {
-        let error;
-        if (!value) {
-            error = 'Required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-            error = 'Invalid email address';
-        }
-        return error;
-    }
 
-    const openNotificationError = () => {
-        notification.open({
-            key,
-            message: 'Failed',
-            description: 'Adding Email Failed',
-        });
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
     const addDataToDynamoDB = async (email) => {
         const userData = {
             email: email
@@ -81,15 +59,10 @@ export default function Login() {
                             onSubmit={(values) => {
                                 addDataToDynamoDB(values.email)
                             }}
-                            validate={validateEmail}
                         >{({
                             values,
-                            errors,
-                            touched,
                             handleChange,
-                            handleBlur,
                             handleSubmit,
-                            isSubmitting,
                             onFinishFailed
                         }) => (
                             <Form
@@ -109,6 +82,16 @@ export default function Login() {
                                         {
                                             required: true,
                                             message: 'Please input your email!',
+                                        },
+                                        {
+                                            message: 'Invalid email address',
+                                            validator: (_, value) => {
+                                                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+                                                    return Promise.reject('Invalid email address');
+                                                } else {
+                                                    return Promise.resolve();
+                                                }
+                                            }
                                         },
                                     ]}
                                 >
