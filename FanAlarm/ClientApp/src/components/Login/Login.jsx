@@ -14,9 +14,6 @@ export default function Login() {
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
 
     const openNotification = (email) => {
         notification.open({
@@ -34,9 +31,6 @@ export default function Login() {
         });
     };
 
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
     const addDataToDynamoDB = async (email) => {
         const userData = {
             email: email
