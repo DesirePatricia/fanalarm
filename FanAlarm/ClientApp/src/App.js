@@ -5,6 +5,8 @@ import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Artist from './components/Artist/Artist';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -38,7 +40,18 @@ function App() {
     }, [dispatch, token]);
 
 
-    return token ? <Dashboard code={token} /> : <Login />
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/" render={() => (
+                    token ? <Dashboard code={token} /> : <Redirect to="/login" />
+                )} />
+                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/artist/:name" component={Artist} />
+            </Switch>
+        </Router>
+    );
 }
 
 export default App

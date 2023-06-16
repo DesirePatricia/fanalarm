@@ -5,6 +5,7 @@ import { useStateProvider } from "../../utils/StateProvider";
 import "./TopArtists.css";
 import Grid from '@mui/material/Grid';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Link } from 'react-router-dom';
 
 export default function TopArtists() {
     const [{ token, allArtists }, dispatch] = useStateProvider();
@@ -45,7 +46,7 @@ export default function TopArtists() {
                                     <div className="topArtists-artist-name">{name}</div>
                                 </Grid>
                                 <Grid item xs={2} xsoffset={0} md={1} mdoffset="auto">
-                                    <MoreHorizIcon className="topArtists-artist-more" />
+                                    <Link to={`/Artist/${name}`} param={name}><MoreHorizIcon className="topArtists-artist-more" /></Link>
                                 </Grid>
                             </Grid>
                         </li>

@@ -9,6 +9,7 @@
     "@mui/material": "^5.13.4",
     "antd": "^5.4.7",
     "aws-sdk": "^2.1374.0",
+    "axios": "^1.4.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "~4.6.1",
     "firebase": "^9.21.0",

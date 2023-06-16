@@ -28,9 +28,9 @@ namespace FanAlarm.Services.Implementations
             return result;
         }
 
-        public async  Task<ConcertDetailsSqlServer> GetConcertDetailsAsync(string stringConn, string concertName)
+        public async Task<IList<ConcertDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName)
         {
-            var result = await _concertsSqlServerRepository.GetConcertDetailsAsync(stringConn, concertName);
+            var result = await _concertsSqlServerRepository.GetArtistDetailsAsync(stringConn, concertName);
 
             return result;
         }

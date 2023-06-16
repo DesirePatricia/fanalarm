@@ -9,6 +9,6 @@ namespace FanAlarm.Repositories.Interfaces
     public interface IConcertsSqlServerRepository
     {
         Task<IList<ConcertDetailsSqlServer>> GetAllConcertDetailsAsync(string stringConn);
-        Task<ConcertDetailsSqlServer> GetConcertDetailsAsync(string stringConn, string concertName);
+        Task<IList<ConcertDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName);
     }
 }

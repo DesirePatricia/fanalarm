@@ -10,7 +10,7 @@ export default function Login() {
     const key = 'updatable';
     const [isModalOpen, setIsModalOpen] = useState(false);
     const CLIENT_ID = "2b13915048a841b4b878f0287977a897"
-    const REDIRECT_URI = "https://localhost:3000"
+    const REDIRECT_URI = "https://localhost:3000/dashboard"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "token"
     const SCOPE = "user-top-read"
@@ -55,7 +55,7 @@ export default function Login() {
                     </div>
                 </div>
                 <div className="loginButtonForm">
-                    <a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
+                    <a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}/?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
                         Sync with Spotify
                     </a>
                 </div>

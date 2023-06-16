@@ -93,36 +93,38 @@ namespace FanAlarm.Repositories.Implementations
         }
 
 
-    public async Task<ConcertDetailsSqlServer> GetConcertDetailsAsync(string stringConn, string concertName)
+    public async Task<IList<ConcertDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName)
     {
 
         try
         {
-            var concertDetailsSqlServer = new ConcertDetailsSqlServer();
-            using (var connection = new MySqlConnection(stringConn))
+                var concertDetailsSqlServerList = new List<ConcertDetailsSqlServer>();
+                using (var connection = new MySqlConnection(stringConn))
             {
                     var commandStr = "SELECT * " +
-                                     "FROM concerts " +
-                                     "JOIN attractions_concerts ON concerts.concerts_id = attractions_concerts.concerts_id " +
-                                     "JOIN attractions ON attractions_concerts.attractions_id = attractions.attractions_id " +
-                                     "JOIN venues ON venues.venues_id = concerts.concerts_id " +
+                                     "FROM attractions " +
+                                     "JOIN attractions_concerts ON attractions.attractions_id = attractions_concerts.attractions_id " +
+                                     "JOIN concerts ON attractions_concerts.concerts_id = concerts.concerts_id " +
+                                     "JOIN venues ON venues.venues_id = concerts.venue_id " +
                                      "JOIN sales ON sales.concert_id = concerts.concerts_id "+
-                                     "WHERE concerts.concerts_name = %s";
+                                     "WHERE attractions.attractions_name = '{0}'";
 
                     commandStr = String.Format(commandStr, concertName);
                     var cmd = new MySqlCommand(commandStr, connection);
 
-                connection.Open();
-                cmd.CommandTimeout = _commandTimeOut;
-                var dataReader = await cmd.ExecuteReaderAsync();
-                var artists = new List<ArtistsDetailsSqlServer>();
-                var venues = new List<VenueDetailsSqlServer>();
-                var sales = new List<SalesDetailsSqlServer>();
-
-                while (dataReader.Read())
+                if (connection.State == ConnectionState.Closed)
                 {
+                    connection.Open();
+                }
+                    cmd.CommandTimeout = _commandTimeOut;
+                    var dataReader = await cmd.ExecuteReaderAsync();
+                    var artists = new List<ArtistsDetailsSqlServer>();
+                    var venues = new List<VenueDetailsSqlServer>();
+                    var sales = new List<SalesDetailsSqlServer>();
 
-                        artists.Add(new ArtistsDetailsSqlServer { Name = Convert.ToString(dataReader["attractions_name"])});
+                    while (dataReader.Read())
+                    {
+                        artists.Add(new ArtistsDetailsSqlServer { Name = Convert.ToString(dataReader["attractions_name"]) });
                         venues.Add(new VenueDetailsSqlServer
                         {
                             Name = Convert.ToString(dataReader["venues_name"]),
@@ -132,23 +134,34 @@ namespace FanAlarm.Repositories.Implementations
                             State = Convert.ToString(dataReader["state"]),
                             Location = Convert.ToString(dataReader["location"])
                         });
-                    concertDetailsSqlServer = new ConcertDetailsSqlServer
-                    {
-                        Name = Convert.ToString(dataReader["concerts_name"]),
-                        Url = Convert.ToString(dataReader["url"]),
-                        Artists = artists,
-                        Venues = venues,
-                        Sales = sales
+                        var concertDetailsSqlServer = new ConcertDetailsSqlServer
+                        {
+                            Name = Convert.ToString(dataReader["concerts_name"]),
+                            Url = Convert.ToString(dataReader["url"]),
+                            Artists = artists,
+                            Venues = venues,
+                            Sales = sales
 
-                    };
-                }
+                        };
+
+                        if (concertDetailsSqlServerList.LastOrDefault() == null || (concertDetailsSqlServerList.LastOrDefault().Name != concertDetailsSqlServer.Name))
+                        {
+                            concertDetailsSqlServerList.Add(concertDetailsSqlServer);
+                            artists = new List<ArtistsDetailsSqlServer>();
+                            venues = new List<VenueDetailsSqlServer>();
+                            sales = new List<SalesDetailsSqlServer>();
+
+                        }
+
+                    }
 
                 connection.Close();
-                return concertDetailsSqlServer;
+                return concertDetailsSqlServerList;
             }
         }
         catch (Exception ex)
         {
+             Console.Write(ex);
         }
 
         return null;

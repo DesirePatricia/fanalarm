@@ -29,13 +29,13 @@ namespace FanAlarm.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Route("api/getconcert")]
+        [HttpGet()]
+        [Route("api/getconcert/{name}")]
         public async Task<IActionResult> GetConcert(string name)
         {
 
             var connectionstring = _appSettings.Value.SqlServerConnection;
-            var concertDetails = await _concertsSqlServerService.GetConcertDetailsAsync(
+            var concertDetails = await _concertsSqlServerService.GetArtistDetailsAsync(
                 connectionstring, name);
 
             return Json(concertDetails);
@@ -43,7 +43,7 @@ namespace FanAlarm.Controllers
 
         [HttpGet]
         [Route("api/getconcerts")]
-        public async Task<IActionResult> GetConcerts(string name)
+        public async Task<IActionResult> GetConcerts()
         {
             var concertDetails = await _concertsSqlServerService.GetAllConcertDetailsAsync();
 
