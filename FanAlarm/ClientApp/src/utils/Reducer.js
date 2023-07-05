@@ -5,6 +5,7 @@ export const initialState = {
     userInfo: null,
     allArtists: [],
     aritst: null,
+    artistDetails: [],
 };
 
 const reducer = (state, action) => {
@@ -28,6 +29,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 allArtists: action.allArtists,
+            };
+        case reducerCases.GET_ARTIST_DETAILS:
+            return {
+                ...state,
+                artistDetails: action.artistDetails,
             };
         default:
             return state;

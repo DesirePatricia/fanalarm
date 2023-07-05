@@ -8,6 +8,6 @@ namespace FanAlarm.Services.Interfaces
     public interface IConcertsSqlServerService
     {
         Task<IList<ConcertDetailsSqlServer>> GetAllConcertDetailsAsync();
-        Task<IList<ConcertDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName);
+        Task<IList<ArtistsDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName);
     }
 }

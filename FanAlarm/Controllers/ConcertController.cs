@@ -6,6 +6,8 @@ using FanAlarm.Models;
 using FanAlarm.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,7 +39,6 @@ namespace FanAlarm.Controllers
             var connectionstring = _appSettings.Value.SqlServerConnection;
             var concertDetails = await _concertsSqlServerService.GetArtistDetailsAsync(
                 connectionstring, name);
-
             return Json(concertDetails);
         }
 

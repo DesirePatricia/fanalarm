@@ -16,6 +16,8 @@ namespace FanAlarm.Repositories.Implementations
     {
         private readonly string _configConnectionString;
         private readonly int _commandTimeOut = 90;
+        private ArtistsDetailsSqlServer artistDetailsSqlServer;
+
         public ConcertsSqlServerRepository(IOptions<AppSettingsModel> appSetting)
         {
             _configConnectionString = appSetting.Value.SqlServerConnection;
@@ -49,7 +51,8 @@ namespace FanAlarm.Repositories.Implementations
 
                     while (dataReader.Read())
                     {
-                        artists.Add(new ArtistsDetailsSqlServer { Name = Convert.ToString(dataReader["attractions_name"]) });
+                        artists.Add(new ArtistsDetailsSqlServer
+                        { Name = Convert.ToString(dataReader["attractions_name"]) });
                         venues.Add(new VenueDetailsSqlServer
                         {
                             Name = Convert.ToString(dataReader["venues_name"]),
@@ -57,15 +60,12 @@ namespace FanAlarm.Repositories.Implementations
                             City = Convert.ToString(dataReader["city"]),
                             Country = Convert.ToString(dataReader["country"]),
                             State = Convert.ToString(dataReader["state"]),
-                            Location = Convert.ToString(dataReader["location"])
+                            Location = Convert.ToString(dataReader["location"]),
+                            Url = Convert.ToString(dataReader["url"]),
                         });
                         var concertDetailsSqlServer = new ConcertDetailsSqlServer
                         {
                             Name = Convert.ToString(dataReader["concerts_name"]),
-                            Url = Convert.ToString(dataReader["url"]),
-                            Artists = artists,
-                            Venues = venues,
-                            Sales = sales
 
                         };
                         
@@ -93,20 +93,19 @@ namespace FanAlarm.Repositories.Implementations
         }
 
 
-    public async Task<IList<ConcertDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName)
+    public async Task<IList<ArtistsDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName)
     {
 
         try
         {
-                var concertDetailsSqlServerList = new List<ConcertDetailsSqlServer>();
+                var artistDetailsSqlServerList = new List<ArtistsDetailsSqlServer>();
                 using (var connection = new MySqlConnection(stringConn))
             {
-                    var commandStr = "SELECT * " +
+                    var commandStr = "SELECT DISTINCT * " +
                                      "FROM attractions " +
                                      "JOIN attractions_concerts ON attractions.attractions_id = attractions_concerts.attractions_id " +
                                      "JOIN concerts ON attractions_concerts.concerts_id = concerts.concerts_id " +
                                      "JOIN venues ON venues.venues_id = concerts.venue_id " +
-                                     "JOIN sales ON sales.concert_id = concerts.concerts_id "+
                                      "WHERE attractions.attractions_name = '{0}'";
 
                     commandStr = String.Format(commandStr, concertName);
@@ -118,13 +117,11 @@ namespace FanAlarm.Repositories.Implementations
                 }
                     cmd.CommandTimeout = _commandTimeOut;
                     var dataReader = await cmd.ExecuteReaderAsync();
-                    var artists = new List<ArtistsDetailsSqlServer>();
                     var venues = new List<VenueDetailsSqlServer>();
-                    var sales = new List<SalesDetailsSqlServer>();
+                    var concerts = new ConcertDetailsSqlServer();
 
                     while (dataReader.Read())
                     {
-                        artists.Add(new ArtistsDetailsSqlServer { Name = Convert.ToString(dataReader["attractions_name"]) });
                         venues.Add(new VenueDetailsSqlServer
                         {
                             Name = Convert.ToString(dataReader["venues_name"]),
@@ -132,31 +129,34 @@ namespace FanAlarm.Repositories.Implementations
                             City = Convert.ToString(dataReader["city"]),
                             Country = Convert.ToString(dataReader["country"]),
                             State = Convert.ToString(dataReader["state"]),
-                            Location = Convert.ToString(dataReader["location"])
+                            Location = Convert.ToString(dataReader["location"]),
+                            Date = Convert.ToDateTime(dataReader["concerts_date"]),
+                            Url = Convert.ToString(dataReader["url"]),
                         });
-                        var concertDetailsSqlServer = new ConcertDetailsSqlServer
+                        concerts = new ConcertDetailsSqlServer
                         {
                             Name = Convert.ToString(dataReader["concerts_name"]),
-                            Url = Convert.ToString(dataReader["url"]),
-                            Artists = artists,
-                            Venues = venues,
-                            Sales = sales
 
                         };
-
-                        if (concertDetailsSqlServerList.LastOrDefault() == null || (concertDetailsSqlServerList.LastOrDefault().Name != concertDetailsSqlServer.Name))
+                        var artists = new ArtistsDetailsSqlServer
                         {
-                            concertDetailsSqlServerList.Add(concertDetailsSqlServer);
-                            artists = new List<ArtistsDetailsSqlServer>();
-                            venues = new List<VenueDetailsSqlServer>();
-                            sales = new List<SalesDetailsSqlServer>();
+                            Name = Convert.ToString(dataReader["attractions_name"]),
+                            Image = Convert.ToString(dataReader["attractions_image"]),
+                            Venues = venues,
+                            Concerts = concerts,
+
+                    };
+
+                        if (artistDetailsSqlServerList.LastOrDefault() == null || (artistDetailsSqlServerList.LastOrDefault().Name != artists.Name))
+                        {
+                            artistDetailsSqlServerList.Add(artists);
 
                         }
 
                     }
 
                 connection.Close();
-                return concertDetailsSqlServerList;
+                return artistDetailsSqlServerList;
             }
         }
         catch (Exception ex)

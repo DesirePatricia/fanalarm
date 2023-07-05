@@ -17,6 +17,7 @@
     <PackageReference Include="InstagramApiSharp" Version="1.7.4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="JSONRequest.Net" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,7 @@
     <None Remove="System.Data.SqlClient" />
     <None Remove="Models\SQLServer\" />
     <None Remove="MySql.Data" />
+    <None Remove="JSONRequest.Net" />
   </ItemGroup>
 
   <ItemGroup>
