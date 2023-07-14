@@ -28,7 +28,12 @@ const reducer = (state, action) => {
         case reducerCases.GET_ALL_ARTISTS:
             return {
                 ...state,
-                allArtists: action.allArtists,
+                artists: action.artists,
+            };
+        case reducerCases.GET_TOP_ARTISTS:
+            return {
+                ...state,
+                topArtists: action.artists,
             };
         case reducerCases.GET_ARTIST_DETAILS:
             return {

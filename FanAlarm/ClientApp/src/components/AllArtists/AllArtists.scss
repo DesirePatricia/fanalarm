@@ -1,0 +1,275 @@
+ .allArists-header {
+     background: #5B8E7D;
+ }
+
+ .allArtists-header-title {
+     font-family: "Futura";
+     font-size: 44px;
+     color: white;
+     text-shadow: -6px 6px #BC4B51;
+     padding: 1%;
+
+     @media(max-width:670px) {
+         font-size: 30px;
+     }
+ }
+ 
+ .allArtists-wrapper {
+     background: #F4A259;
+     padding-bottom: 10%;
+ }
+
+ .allArtists-lists {
+     list-style-type: none;
+     padding: 0;
+     padding-bottom: 4%;
+     margin: 0;
+     text-align: center;
+     text-align: -webkit-center;
+ }
+
+ .allArtists-title {
+     padding-top: 7%;
+     padding-bottom: 0.3%;
+     text-align: center;
+     line-height: 1;
+     font-family: 'Futura';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 64px;
+     color: #BC4B51;
+
+     @media(max-width:670px) and (min-width: 510px) {
+         font-size: 45px;
+     }
+
+     @media(max-width: 510px) {
+         font-size: 34px;
+     }
+ }
+
+ .allArtists-artist {
+     width: 805px;
+     background: #FBF2C5;
+     border-radius: 12px;
+     margin: 2%;
+     padding: 2%;
+     text-align: left;
+
+     @media (max-width: 850px) and (min-width:670px) {
+         width: 605px;
+     }
+
+     @media(max-width: 670px) and (min-width:450px) {
+         width: 405px;
+     }
+
+     @media(max-width:450px) {
+         width: 280px;
+     }
+ }
+
+ .allArtists-artist-num {
+     display: inline-block;
+     font-family: 'Futura';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 32px;
+     line-height: 43px;
+     color: #000000;
+     margin: 0 2%;
+
+     @media (max-width: 905px) and (min-width:450px) {
+         font-size: 28px;
+     }
+
+     @media (max-width:450px) {
+         font-size: 22px;
+     }
+ }
+
+ .allArtists-artist-name {
+     display: inline-block;
+     font-family: 'Futura';
+     font-style: normal;
+     font-weight: 500;
+     font-size: 32px;
+     line-height: 42px;
+     color: #000000;
+     margin: 0 8%;
+
+     @media (max-width: 905px) and (min-width:450px) {
+         font-size: 28px;
+         margin: 0 5%;
+     }
+
+     @media (max-width:450px) {
+         font-size: 22px;
+     }
+ }
+
+ .allArtists-top-count{
+    background: #FBF2C5;
+    width: 100px;
+    border: 0;
+    border-radius: 12px;
+    font-family: 'Futura';
+    font-weight: 700;
+    
+ }
+
+ .allArtists-checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+ }
+
+input[type="checkbox"] {
+    /* ...existing styles */
+    display: grid;
+    place-content: center;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    margin-top: 5%;
+    width: 23px;
+    height: 23px;
+    color: #BC4B51;
+    background-color: #FBF2C5;
+    appearance: none;
+    border: 0.15em solid #BC4B51;
+    border-radius: 50%;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    background-color: #BC4B51;
+    border-radius: 50%;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+input[type="radio"] {
+    display: flex;
+    padding-left: 1%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 23px;
+    height: 23px;
+    background-color: transparent;
+    border: 2px solid #FBF2C5;
+    border-radius: 50%;
+}
+
+input[type="radio"]::before {
+    content: "";
+    display: block;
+    width: 13px;
+    height: 13px;
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 3px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+input[type="radio"]:checked::before {
+    background-color: #FBF2C5;
+}
+
+.allArtists-radio-label{
+    display: flex;
+    color:#FBF2C5;
+    font-size: 20px;
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-right: 1%;
+}
+
+.allArtists-radio-text{
+    display: flex;
+    padding-right: 1%;
+}
+
+.allArtists-message-radio-wrapper{
+    display: flex;
+    margin-left: 35%;
+}
+
+.allArtists-message-container{
+    margin-left: 35%;
+    justify-content: center;
+    align-items: center;
+    width:30%;
+    background-color: #BC4B51;
+    border-radius: 12px;
+}
+
+.allArtists-message{
+    margin: 2.5%;
+    border-radius: 12px;
+    height: 47px;
+    width: 80%;
+    border: none;
+    background: #FBF2C5;
+}
+
+.allArtists-message-number{
+    display: none;
+}
+
+.allArtists-button{
+    appearance: none;
+    width: 50px;
+    border: none;
+    background: none;
+}
+.allArtists-footer {
+    background: #5B8E7D;
+}
+
+.allArtists-button-logout {
+    align-items: right;
+    background-color: #5B8E7D;
+    margin-left: 95%;
+    border: 0px;
+    font-family: 'Futura';
+    color: #FFFFFF;
+    font-size: 18px;
+
+    @media(max-width: 1345px) and (min-width:820px) {
+        margin-left: 90%;
+    }
+
+    @media(max-width:820px) and (min-width:570px) {
+        margin-left: 88%;
+    }
+
+    @media(max-width:570px) and (min-width:450px) {
+        margin-left: 85%;
+    }
+
+    @media (max-width:450px) {
+        margin-left: 81%;
+    }
+}
+
+.footer-fanalarm-title {
+    font-family: "Futura";
+    font-size: 40px;
+    color: white;
+    text-shadow: -6px 6px #BC4B51;
+    padding: 1%;
+    padding-top: 10%;
+    text-align: right;
+}

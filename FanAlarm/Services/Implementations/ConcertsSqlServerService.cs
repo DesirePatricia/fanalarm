@@ -34,5 +34,11 @@ namespace FanAlarm.Services.Implementations
 
             return result;
         }
+        public async Task<Boolean> GetArtistExistsAsync(string stringConn, string artistName)
+        {
+            var result = await _concertsSqlServerRepository.GetArtistExistsAsync(stringConn, artistName);
+
+            return result;
+        }
     }
 }

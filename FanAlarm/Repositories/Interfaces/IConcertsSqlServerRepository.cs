@@ -10,5 +10,6 @@ namespace FanAlarm.Repositories.Interfaces
     {
         Task<IList<ConcertDetailsSqlServer>> GetAllConcertDetailsAsync(string stringConn);
         Task<IList<ArtistsDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName);
+        Task<Boolean> GetArtistExistsAsync(string stringConn, string artistName);
     }
 }

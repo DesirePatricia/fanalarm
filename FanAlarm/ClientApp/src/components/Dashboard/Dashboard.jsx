@@ -10,21 +10,14 @@ export default function Dashboard({ code }) {
         window.localStorage.removeItem("token")
     }
 
-    const CLIENT_ID = "197117536354511"
-    const REDIRECT_URI = "https://localhost:3000"
-    const AUTH_ENDPOINT = "https://api.instagram.com/oauth/authorize"
-    const RESPONSE_TYPE = "code"
-    const SCOPE = "user_profile,user_media"
-
     return (<>
-                <div className='topArists-header'>
-                    <div className='topArtists-header-title'>Fan Alarm</div>
-                    <button className='topArtists-button' onClick={logout}>Logout</button>
-                </div>
-                <TopArtists/>
-                <div className='topArtists-footer'>
-                    <div className='footer-fanalarm-title'>Fan Alarm</div>
-                </div>
-        </>
-        );
+        <div className='topArists-header'>
+            <div className='topArtists-header-title'>Fan Alarm</div>
+        </div>
+        <TopArtists />
+        <div className='topArtists-footer'>
+            <div className='footer-fanalarm-title'>Fan Alarm</div>
+        </div>
+    </>
+    );
 }

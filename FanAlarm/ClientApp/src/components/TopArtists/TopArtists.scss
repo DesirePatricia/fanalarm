@@ -13,8 +13,9 @@
 
 .topArtists-title{
     padding-top: 7%;
-    padding-bottom: 2%;
+    padding-bottom: 0.3%;
     text-align: center;
+    line-height: 1;
     font-family: 'Futura';
     font-style: normal;
     font-weight: 700;
@@ -92,5 +93,90 @@
     @media (max-width:450px){
         width: 1em !important;
         height: 1em !important;
+    }
+}
+
+.spinner {
+    width: 64px;
+    height: 64px;
+    border: 8px solid;
+    border-color: #3d5af1 transparent #3d5af1 transparent;
+    border-radius: 50%;
+    animation: spin-anim 1.2s linear infinite;
+}
+
+@keyframes spin-anim {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.topArtists-subtitle{
+    padding-top: 0;
+    margin-top: 0;
+    color: #F4A259;
+    font-size: 40px;
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 0;
+    text-align: center;
+    padding-bottom: 2%;
+    margin-left: 25%;
+    @media (max-width:550px){
+        font-size: 30px;
+    }
+    @media (max-width:350px){
+        margin-left: auto;
+    }
+}
+
+.planeImg{
+    width: 53px;
+    padding-right: 5%;
+}
+
+.topArtists-alert-wrapper{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    
+}
+
+.topArtists-link{
+    color: #FFF;
+    text-decoration: none;
+    &:hover{
+        color: #FFF;
+        text-decoration: none;
+    }
+}
+
+.topArtists-alert{
+    color: #FFF;
+    font-size: 40px;
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    @media (max-width:550px){
+        font-size: 30px;
+    }
+}
+
+.topArtists-alert-container{
+    padding: 1% 6% 1% 6%;
+    margin-bottom: 4%;
+    display: flex;
+    border-radius: 12px;
+    background: #F4A259;
+    border: 3px solid #F4A259;
+    &:hover{
+        border: 3px solid #5B8E7D;
+
     }
 }

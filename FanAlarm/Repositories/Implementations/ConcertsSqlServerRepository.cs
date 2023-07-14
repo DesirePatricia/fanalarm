@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace FanAlarm.Repositories.Implementations
 {
-    public class ConcertsSqlServerRepository :IConcertsSqlServerRepository
+    public class ConcertsSqlServerRepository : IConcertsSqlServerRepository
     {
         private readonly string _configConnectionString;
         private readonly int _commandTimeOut = 90;
@@ -68,7 +68,7 @@ namespace FanAlarm.Repositories.Implementations
                             Name = Convert.ToString(dataReader["concerts_name"]),
 
                         };
-                        
+
                         if (concertDetailsSqlServerList.LastOrDefault() == null || (concertDetailsSqlServerList.LastOrDefault().Name != concertDetailsSqlServer.Name))
                         {
                             concertDetailsSqlServerList.Add(concertDetailsSqlServer);
@@ -93,14 +93,14 @@ namespace FanAlarm.Repositories.Implementations
         }
 
 
-    public async Task<IList<ArtistsDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName)
-    {
-
-        try
+        public async Task<IList<ArtistsDetailsSqlServer>> GetArtistDetailsAsync(string stringConn, string concertName)
         {
+
+            try
+            {
                 var artistDetailsSqlServerList = new List<ArtistsDetailsSqlServer>();
                 using (var connection = new MySqlConnection(stringConn))
-            {
+                {
                     var commandStr = "SELECT DISTINCT * " +
                                      "FROM attractions " +
                                      "JOIN attractions_concerts ON attractions.attractions_id = attractions_concerts.attractions_id " +
@@ -111,10 +111,10 @@ namespace FanAlarm.Repositories.Implementations
                     commandStr = String.Format(commandStr, concertName);
                     var cmd = new MySqlCommand(commandStr, connection);
 
-                if (connection.State == ConnectionState.Closed)
-                {
-                    connection.Open();
-                }
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
                     cmd.CommandTimeout = _commandTimeOut;
                     var dataReader = await cmd.ExecuteReaderAsync();
                     var venues = new List<VenueDetailsSqlServer>();
@@ -145,7 +145,7 @@ namespace FanAlarm.Repositories.Implementations
                             Venues = venues,
                             Concerts = concerts,
 
-                    };
+                        };
 
                         if (artistDetailsSqlServerList.LastOrDefault() == null || (artistDetailsSqlServerList.LastOrDefault().Name != artists.Name))
                         {
@@ -155,17 +155,69 @@ namespace FanAlarm.Repositories.Implementations
 
                     }
 
-                connection.Close();
-                return artistDetailsSqlServerList;
+                    connection.Close();
+                    return artistDetailsSqlServerList;
+                }
             }
-        }
-        catch (Exception ex)
-        {
-             Console.Write(ex);
-        }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
 
-        return null;
+            return null;
+        }
+        public async Task<Boolean> GetArtistExistsAsync(string stringConn, string artistName)
+        {
+
+            try
+            {
+                using (var connection = new MySqlConnection(stringConn))
+                {
+                    var commandStr = "SELECT DISTINCT * " +
+                                     "FROM attractions " +
+                                     "WHERE attractions.attractions_name = '{0}'";
+
+                    commandStr = String.Format(commandStr, artistName);
+                    var cmd = new MySqlCommand(commandStr, connection);
+
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+                    cmd.CommandTimeout = _commandTimeOut;
+                    var dataReader = await cmd.ExecuteReaderAsync();
+
+                    var artistExists = false;
+                    var attractions_name = String.Empty;
+
+                    while (dataReader.Read())
+                    {
+
+                        attractions_name = Convert.ToString(dataReader["attractions_name"]);
+
+                    }
+
+                    if (attractions_name != null && attractions_name != String.Empty)
+                    {
+                        artistExists = true;
+                    }
+                    
+
+
+                    connection.Close();
+                    return artistExists;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return false;
+        }
     }
 }
-}
+
+
+
 

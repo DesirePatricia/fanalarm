@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Artist from './components/Artist/Artist';
+import AllArtists from './components/AllArtists/AllArtists';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -49,6 +50,7 @@ function App() {
                 )} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/artist/:name" component={Artist} />
+                <Route path="/allartists" component={AllArtists} />
             </Switch>
         </Router>
     );

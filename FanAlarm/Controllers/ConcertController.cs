@@ -42,6 +42,17 @@ namespace FanAlarm.Controllers
             return Json(concertDetails);
         }
 
+        [HttpGet()]
+        [Route("api/getartist/{name}")]
+        public async Task<IActionResult> GetArtist(string name)
+        {
+
+            var connectionstring = _appSettings.Value.SqlServerConnection;
+            var concertDetails = await _concertsSqlServerService.GetArtistExistsAsync(
+                connectionstring, name);
+            return Json(concertDetails);
+        }
+
         [HttpGet]
         [Route("api/getconcerts")]
         public async Task<IActionResult> GetConcerts()
