@@ -9,11 +9,11 @@ import { putData} from '../../AwsFunctions';
 export default function Login() {
     const key = 'updatable';
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const CLIENT_ID = "2b13915048a841b4b878f0287977a897"
-    const REDIRECT_URI = "https://localhost:3000/dashboard"
-    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const RESPONSE_TYPE = "token"
-    const SCOPE = "user-top-read"
+    const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+    const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+    const AUTH_ENDPOINT = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT;
+    const RESPONSE_TYPE = process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE;
+    const SCOPE = process.env.REACT_APP_SPOTIFY_SCOPE;
 
     const openNotification = (email) => {
         notification.open({

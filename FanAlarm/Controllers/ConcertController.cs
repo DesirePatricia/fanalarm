@@ -61,5 +61,15 @@ namespace FanAlarm.Controllers
 
             return Json(concertDetails);
         }
+
+        [HttpPost]
+        [Route("api/postusers")]
+        public async Task<IActionResult> PostUsers([FromBody] UserModel user)
+        {
+            var connectionstring = _appSettings.Value.SqlServerConnection;
+            var userResult = await _concertsSqlServerService.PostUserAsync(connectionstring, user);
+
+            return Json(userResult);
+        }
     }
 }

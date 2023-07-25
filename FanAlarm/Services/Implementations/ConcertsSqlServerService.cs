@@ -40,5 +40,65 @@ namespace FanAlarm.Services.Implementations
 
             return result;
         }
+
+        public async Task<Boolean> PostUserAsync(string stringConn, UserModel user)
+        {
+            List<int> ArtistIdsFinal = new List<int>();
+            if(user.Email != null && user.Email != String.Empty)
+            {
+                var emailId = await _concertsSqlServerRepository.GetEmailExistsAsync(stringConn, user.Email);
+                if(emailId == -1)
+                {
+                    emailId = await _concertsSqlServerRepository.AddEmailAsync(stringConn, user.Email);
+                }
+                foreach(ArtistDataModel artists in user.ArtistData)
+                {
+                    int artistId = await _concertsSqlServerRepository.GetArtistExistsIdAsync(stringConn, artists.Name);
+                    if(artistId != -1)
+                    {
+                        ArtistIdsFinal.Add(artistId);
+                    }
+                    else
+                    {
+                        int artistIdNew = await _concertsSqlServerRepository.AddArtistAsync(stringConn, artists.Name);
+                        ArtistIdsFinal.Add(artistIdNew);
+                    }
+
+                }
+                var result = await _concertsSqlServerRepository.AddArtistsEmailAsync(stringConn, ArtistIdsFinal, emailId);
+                return result;
+            }
+            if(user.Number != null && user.Number != String.Empty)
+            {
+                var numberId = await _concertsSqlServerRepository.GetNumberExistsAsync(stringConn, user.Number);
+                if (numberId == -1)
+                {
+                    numberId = await _concertsSqlServerRepository.AddNumberAsync(stringConn, user.Number);
+                }
+                foreach (ArtistDataModel artists in user.ArtistData)
+                {
+                    int artistId = await _concertsSqlServerRepository.GetArtistExistsIdAsync(stringConn, artists.Name);
+                    if (artistId != -1)
+                    {
+                        ArtistIdsFinal.Add(artistId);
+                    }
+                    else
+                    {
+                        artistId = await _concertsSqlServerRepository.AddArtistAsync(stringConn, artists.Name);
+                        ArtistIdsFinal.Add(artistId);
+                    }
+
+                }
+                var result = await _concertsSqlServerRepository.AddArtistsNumberAsync(stringConn, ArtistIdsFinal, numberId);
+                return result;
+
+            }
+            else
+            {
+
+                return false;
+            }
+
+        }
     }
 }

@@ -8,28 +8,22 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Link } from 'react-router-dom';
 import plane from '../../images/Paperplane.svg';
 
+
 export default function TopArtists() {
-    const [{ token }, dispatch] = useStateProvider();
-    const [artists, setArtists] = useState([]);
+    const [{ token, topArtists }, dispatch] = useStateProvider();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log(artists);
-    }, [artists]);
-
-    useEffect(() => {
-        console.log("This is loading: " + loading);
     }, [loading]);
 
     useEffect(() => {
         const getArtistData = async () => {
             // Check if the cached data exists in localStorage
             const cachedData = localStorage.getItem('spotifyData');
-
             if (cachedData) {
                 // Use the cached data
                 const parsedData = JSON.parse(cachedData);
-                setArtists(parsedData);
+                dispatch({ type: reducerCases.GET_TOP_ARTISTS, topArtists: parsedData });
             } else {
                 try {
                     setLoading(true);
@@ -48,8 +42,9 @@ export default function TopArtists() {
                     const baseURL = window.location.origin + "/api/getartist/";
                     const topArtists = [];
                     const allArtists = [];
+                    const exists = [];
                     setLoading(true); // Move loading state update here
-                    for (const { name, id } of items) {
+                    for (const { name, id, artistId } of items) {
                         let totalAllArtists = counterAll++;
                         allArtists.push({ name, id, totalAllArtists });
                         const responseArtist = await axios.get(
@@ -61,19 +56,21 @@ export default function TopArtists() {
                                 },
                             }
                         );
-                        console.log(responseArtist.data);
                         if (responseArtist.data) {
                             let totalArtists = counter++;
-                            console.log(name);
-                            topArtists.push({ name, id, totalArtists });
+                            topArtists.push({ name, id, artistId, totalArtists });
+                            exists.push(true);
+                        } else {
+                            exists.push(false);
                         }
                     }
                     // Cache the response in localStorage
+                    dispatch({ type: reducerCases.GET_TOP_ARTISTS, topArtists: topArtists });
                     localStorage.setItem('spotifyData', JSON.stringify(topArtists));
+                    localStorage.setItem('spotifyDataExists', JSON.stringify(exists));
                     localStorage.setItem('spotifyAllData', JSON.stringify(allArtists));
-                    setArtists(topArtists);
                 } catch (error) {
-                    // Handle error
+                    console.log("error: " + error);
                 } finally {
                     setLoading(false); // Move loading state update here
                 }
@@ -92,8 +89,7 @@ export default function TopArtists() {
                     <div className="loader-container">
                         <div className="spinner"></div>
                     </div>
-                ) : (
-                    artists?.map(({ name, id, totalArtists }) => {
+                ) : (topArtists?.map(({ name, id, totalArtists }) => {
                         return (
                             <li className="topArtists-artist" key={id}>
                                 <Grid container spacing={3} sx={{ flexGrow: 1 }}>
@@ -111,8 +107,9 @@ export default function TopArtists() {
                                 </Grid>
                             </li>
                         );
+                        
                     })
-                )}
+                    )}
             </ul>
             <div className="topArtists-alert-wrapper">
                 <Link className="topArtists-alert-container topArtists-link" to={`/allartists`}>

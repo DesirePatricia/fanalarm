@@ -5,23 +5,72 @@ import { reducerCases } from "../../utils/Constants";
 import { useStateProvider } from "../../utils/StateProvider";
 import Grid from '@mui/material/Grid';
 import plane from '../../images/Paperplane.svg';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+import { Button, Input, Form, notification, Modal } from 'antd';
 
 export default function AllArtists() {
     const [{ token, artists }, dispatch] = useStateProvider();
     const [artistsNum, setArtistsNum] = useState(50);
+    const [artistsAll, setArtistsAll] = useState([]);
+    const [message, setMessage] = React.useState(1)
+    const [checkedState, setCheckedState] = useState(
+        new Array(50).fill(true)
+    );
 
     const handleArtistsChange = (event) => {
         setArtistsNum(parseInt(event.target.value));
     };
 
-    const logout = () => {
-        setToken("")
-        window.localStorage.removeItem("token")
+    const handleCheckedChange = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+            index === position ? !item : item
+        );
+
+        setCheckedState(updatedCheckedState);
+  
+    };
+
+    const postUserData = async (userData) => {
+        try {
+            const response = await axios.post("/api/postusers", userData);
+            console.log("response data: " + response.data);
+            return response.data; // If your response is JSON data, you can return response.data directly
+        } catch (error) {
+            // Handle error here
+            console.error("Error while calling API:", error);
+            throw error;
+        }
+    };
+
+
+    const addDataToSQL = async (values) => {
+        let userData = {email: values.email, number: values.number, artistData: []}
+        if(message == 2){
+            userData.email = '';
+        }
+        else{
+            userData.number = '';
+        }
+            artistsAll?.map(({ name, totalAllArtists }) => {
+                if (totalAllArtists <= artistsNum && checkedState[totalAllArtists - 1]) {
+                    userData.artistData.push({name})
+                    console.log("artistdata: " + name);
+                }
+            });
+
+        try {
+            console.log("User Data:" + JSON.stringify(userData));
+            const userResult = await postUserData(userData);
+            console.log("User result:", userResult);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     useEffect(() => {
         const getArtistData = async () => {
-            // Check if the cached data exists in localStorage
             const cachedData = localStorage.getItem('spotifyAllData');
 
             if (cachedData) {
@@ -40,14 +89,12 @@ export default function AllArtists() {
                         }
                     );
                     const { items } = response.data;
-                    console.log(items);
                     let counter = 1;
-                    const artists = items.map(({ name, id }) => {
+                    const artists = items.map(({ name, artistId, id }) => {
                         let totalAllArtists = counter++;
-                        console.log(totalAllArtists);
-                        return { name, id, totalAllArtists };
+                        return { name, artistId, id, totalAllArtists };
                     });
-                    console.log(artists);
+                    setArtistsAll(artists);
                     // Cache the response in localStorage
                     localStorage.setItem('spotifyAllData', JSON.stringify(artists));
                     dispatch({ type: reducerCases.GET_ALL_ARTISTS, artists });
@@ -63,6 +110,14 @@ export default function AllArtists() {
         // Update the artistsNum state whenever it changes
         setArtistsNum(artistsNum);
     }, [artistsNum]);
+    useEffect(() => {
+        // Update the artistsNum state whenever it changes
+        setArtistsAll(artists);
+    }, [artists]);
+
+    useEffect(() => {
+        console.log(checkedState);
+    }, [checkedState]);
     return (
         <>
         <div className="allArtists-wrapper">
@@ -79,9 +134,7 @@ export default function AllArtists() {
                     max="50" /> ARTISTS
             </div>
             <ul className="allArtists-lists">
-                {console.log(artists)}
-                {artists?.map(({ name, id, totalAllArtists }) => {
-                    console.log("here");
+                    {artists?.map(({ name, id, totalAllArtists }) => {
                     if (totalAllArtists <= artistsNum){
                     return (
                             <li className="allArtists-artist" key={id}>
@@ -93,7 +146,7 @@ export default function AllArtists() {
                                         <div className="allArtists-artist-name">{name}</div>
                                     </Grid>
                                     <Grid item xs={4} xsoffset={0} md={4} mdoffset="auto">
-                                        <input className="allArtists-checkbox" type="checkbox" name="myCheckbox" defaultChecked={true} />
+                                    <input className="allArtists-checkbox" type="checkbox" name="myCheckbox" onChange={() => handleCheckedChange(totalAllArtists)} defaultChecked={true} />
                                     </Grid>
                                 </Grid>
                             </li>
@@ -106,19 +159,102 @@ export default function AllArtists() {
                 <div className="allArtists-message-radio-wrapper">
                     <label className="allArtists-radio-label">
                         <span className="allArtists-radio-text">Email</span>
-                        <input className="allArtists-radio" defaultChecked={true} type="radio" value="email" name="message" />
+                            <input className="allArtists-radio" defaultChecked={true}
+                                onClick={() => setMessage(1)} type="radio" value="email" name="message" />
                     </label>
                     <label className="allArtists-radio-label">
                         <span className="allArtists-radio-text">Text</span> 
-                        <input className="allArtists-radio" type="radio" value="text" name="message" />
+                            <input className="allArtists-radio"
+                                onClick={() => setMessage(2)} type="radio" value="text" name="message" />
                     </label>
                 </div>
                 <div className="allArtists-message-container">
-                    <input className="allArtists-message allArtists-message-text" type="text"/>
-                    <input className="allArtists-message allArtists-message-number" type="number" />
-                    <button className="allArtists-button">
-                        <img className="allArtists-planeImg" src={plane} alt="Alert Paperplane" />
-                    </button>
+                        <Formik
+                            initialValues={{
+                                email: '',
+                                number: ''
+                            }}
+                            onSubmit={(values) => {
+                                addDataToSQL(values)
+                            }}
+                        >{({
+                            values,
+                            handleChange,
+                            handleSubmit,
+                            onFinishFailed
+                        }) => (
+                            <Form
+                                onSubmit={handleSubmit}
+                                initialValues={values}
+                                onFinish={handleSubmit}
+                                onFinishFailed={onFinishFailed}
+                                className="allArtists-form"
+                            >
+                           { message === 1 && 
+                                <Form.Item
+                                    name="email"
+                                    onChange={handleChange}
+                                    className="allArtists-form-email"
+                                    value={values.email}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your email!',
+                                        },
+                                        {
+                                            message: 'Invalid email address',
+                                            validator: (_, value) => {
+                                                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+                                                    return Promise.reject('Invalid email address');
+                                                } else {
+                                                    return Promise.resolve();
+                                                }
+                                            }
+                                        },
+                                    ]}
+                                >
+                                        <input className="allArtists-message allArtists-message-text" type="text" />
+                                </Form.Item>
+                                }
+                                    {message === 2 && (
+                                        <Form.Item
+                                            name="number"
+                                            onChange={handleChange}
+                                            className="allArtists-form-number"
+                                            value={values.number}
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your number!',
+                                                },
+                                                {
+                                                    message: 'Invalid number',
+                                                    validator: (_, value) => {
+                                                        if (!/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/.test(value)) {
+                                                            return Promise.reject('Invalid number');
+                                                        } else {
+                                                            return Promise.resolve();
+                                                        }
+                                                    },
+                                                },
+                                            ]}
+                                        >
+                                            <Input className="allArtists-message allArtists-message-number" type="tel" />
+                                        </Form.Item>
+                                    )}
+
+                                <Form.Item
+                                    className="allArtists-form-button"
+                                    wrapperCol={{
+                                        span: 8,
+                                    }}
+                                >
+                                    <button className="allArtists-button" type="primary" htmltype="submit">
+                                        <img className="allArtists-planeImg" src={plane} alt="Alert Paperplane" />
+                                    </button>
+                                </Form.Item>
+                            </Form>)}
+                        </Formik>
                 </div>
             </div>
             
