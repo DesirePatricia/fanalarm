@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import Login from "./components/Login/Login"
 import Dashboard from "./components/Dashboard/Dashboard"
+import Feedback from "./components/Feedback/Feedback"
 import { reducerCases } from "./utils/Constants";
 import { useStateProvider } from "./utils/StateProvider";// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/artist/:name" component={Artist} />
                 <Route path="/allartists" component={AllArtists} />
+                <Route path="/feedback" component={Feedback} />
             </Switch>
         </Router>
     );

@@ -5,15 +5,17 @@ import { reducerCases } from "../../utils/Constants";
 import { useStateProvider } from "../../utils/StateProvider";
 import Grid from '@mui/material/Grid';
 import plane from '../../images/Paperplane.svg';
-import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { Button, Input, Form, notification, Modal } from 'antd';
+import { Input, Form, notification } from 'antd';
 
 export default function AllArtists() {
+    const key = 'updatable';
     const [{ token, artists }, dispatch] = useStateProvider();
     const [artistsNum, setArtistsNum] = useState(50);
     const [artistsAll, setArtistsAll] = useState([]);
-    const [message, setMessage] = React.useState(1)
+    const [message, setMessage] = React.useState(1);
+    const [latitude, setLatitude] = React.useState(0);
+    const [longitude, setLongitude] = React.useState(0);
     const [checkedState, setCheckedState] = useState(
         new Array(50).fill(true)
     );
@@ -31,6 +33,31 @@ export default function AllArtists() {
   
     };
 
+    const success = (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        
+    }
+
+    const error = (error) => {
+        console.log("Unable to retrieve your location" + error);
+    }
+    const openNotification = () => {
+        notification.open({
+            key,
+            message: 'User added Successfully',
+            description: 'Artists were saved successfully',
+        });
+    };
+
+    const openErrorNotification = () => {
+        notification.open({
+            key,
+            message: 'User not added Successfully',
+            description: 'Artists were not saved successfully',
+        });
+    };
+
     const postUserData = async (userData) => {
         try {
             const response = await axios.post("/api/postusers", userData);
@@ -45,7 +72,7 @@ export default function AllArtists() {
 
 
     const addDataToSQL = async (values) => {
-        let userData = {email: values.email, number: values.number, artistData: []}
+        let userData = {email: values.email, number: values.number, artistData: [], latitude: latitude.toString(), longitude: longitude.toString()}
         if(message == 2){
             userData.email = '';
         }
@@ -62,7 +89,12 @@ export default function AllArtists() {
         try {
             console.log("User Data:" + JSON.stringify(userData));
             const userResult = await postUserData(userData);
-            console.log("User result:", userResult);
+            if(userResult){
+                openNotification();
+            }
+            else{
+                openErrorNotification();
+            }
         } catch (error) {
             console.log(error);
         }
@@ -118,6 +150,20 @@ export default function AllArtists() {
     useEffect(() => {
         console.log(checkedState);
     }, [checkedState]);
+
+    useEffect(() => {
+        console.log(latitude);
+    }, [latitude]);
+
+    useEffect(() => {
+        console.log(longitude);
+    }, [longitude]);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+        console.log("Geolocation not supported");
+    }
     return (
         <>
         <div className="allArtists-wrapper">
@@ -139,13 +185,13 @@ export default function AllArtists() {
                     return (
                             <li className="allArtists-artist" key={id}>
                                 <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-                                    <Grid item xs={2} xsoffset={0} md={2} mdoffset={0}>
+                                    <Grid item xs={2} xsoffset={0} sm={2} md={2} mdoffset={0}>
                                         <div className="allArtists-artist-num">{totalAllArtists}</div>
                                     </Grid>
-                                    <Grid item xs={6} xsoffset={0} md={6} mdoffset={0}>
+                                    <Grid item xs={8} xsoffset={0} sm={8} md={6} mdoffset={0}>
                                         <div className="allArtists-artist-name">{name}</div>
                                     </Grid>
-                                    <Grid item xs={4} xsoffset={0} md={4} mdoffset="auto">
+                                    <Grid item xs={2} xsoffset={0} sm={2} md={4} mdoffset="auto">
                                     <input className="allArtists-checkbox" type="checkbox" name="myCheckbox" onChange={() => handleCheckedChange(totalAllArtists)} defaultChecked={true} />
                                     </Grid>
                                 </Grid>

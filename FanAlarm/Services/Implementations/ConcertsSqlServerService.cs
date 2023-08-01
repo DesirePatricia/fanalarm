@@ -49,7 +49,7 @@ namespace FanAlarm.Services.Implementations
                 var emailId = await _concertsSqlServerRepository.GetEmailExistsAsync(stringConn, user.Email);
                 if(emailId == -1)
                 {
-                    emailId = await _concertsSqlServerRepository.AddEmailAsync(stringConn, user.Email);
+                    emailId = await _concertsSqlServerRepository.AddEmailAsync(stringConn, user.Email, user.Latitude, user.Longitude);
                 }
                 foreach(ArtistDataModel artists in user.ArtistData)
                 {
@@ -73,7 +73,7 @@ namespace FanAlarm.Services.Implementations
                 var numberId = await _concertsSqlServerRepository.GetNumberExistsAsync(stringConn, user.Number);
                 if (numberId == -1)
                 {
-                    numberId = await _concertsSqlServerRepository.AddNumberAsync(stringConn, user.Number);
+                    numberId = await _concertsSqlServerRepository.AddNumberAsync(stringConn, user.Number, user.Latitude, user.Longitude);
                 }
                 foreach (ArtistDataModel artists in user.ArtistData)
                 {

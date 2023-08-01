@@ -231,15 +231,17 @@ namespace FanAlarm.Repositories.Implementations
             return false;
         }
 
-        public async Task<int> AddEmailAsync(string stringConn, string email)
+        public async Task<int> AddEmailAsync(string stringConn, string email, string latitude, string longitude)
         {
             try
             {
                 using (var connection = new MySqlConnection(stringConn))
                 {
-                    var commandStr = "INSERT INTO emails (email) VALUES (@emailName)";
+                    var commandStr = "INSERT INTO emails (email, email_lat, email_long) VALUES (@emailName, @latitude, @longitude)";
                     var cmd = new MySqlCommand(commandStr, connection);
                     cmd.Parameters.AddWithValue("@emailName", email);
+                    cmd.Parameters.AddWithValue("@latitude", latitude);
+                    cmd.Parameters.AddWithValue("@longitude", longitude);
 
                     if (connection.State == ConnectionState.Closed)
                     {
@@ -262,15 +264,17 @@ namespace FanAlarm.Repositories.Implementations
             return -1;
         }
 
-        public async Task<int> AddNumberAsync(string stringConn, string number)
+        public async Task<int> AddNumberAsync(string stringConn, string number, string latitude, string longitude)
         {
             try
             {
                 using (var connection = new MySqlConnection(stringConn))
                 {
-                    var commandStr = "INSERT INTO numbers (number) VALUES (@number)";
+                    var commandStr = "INSERT INTO numbers (number, number_lat, number_long) VALUES (@number, @latitude, @longitude)";
                     var cmd = new MySqlCommand(commandStr, connection);
                     cmd.Parameters.AddWithValue("@number", number);
+                    cmd.Parameters.AddWithValue("@latitude", latitude);
+                    cmd.Parameters.AddWithValue("@longitude", longitude);
 
                     if (connection.State == ConnectionState.Closed)
                     {

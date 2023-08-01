@@ -16,8 +16,8 @@ namespace FanAlarm.Repositories.Interfaces
         Task<int> GetNumberExistsAsync(string stringConn, string number);
         Task<int> AddArtistAsync(string stringConn, string artistName);
         Task<List<int>> AddArtistsAsync(string stringConn, List<string> artistName);
-        Task<int> AddNumberAsync(string stringConn, string number);
-        Task<int> AddEmailAsync(string stringConn, string email);
+        Task<int> AddNumberAsync(string stringConn, string number, string latitude, string longitude);
+        Task<int> AddEmailAsync(string stringConn, string email, string latitude, string longitude);
         Task<Boolean> AddArtistEmailAsync(string stringConn, int artistId, int emailId);
         Task<Boolean> AddArtistsEmailAsync(string stringConn, List<int> artistIds, int emailId);
         Task<int> AddArtistNumberAsync(string stringConn, int artistId, int numberId);
