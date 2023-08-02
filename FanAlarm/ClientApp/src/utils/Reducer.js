@@ -4,7 +4,10 @@ export const initialState = {
     token: null,
     userInfo: null,
     allArtists: [],
-    aritst: null,
+    artist: null,
+    artists: [],
+    topArtists: [],
+    artistDetails: [],
 };
 
 const reducer = (state, action) => {
@@ -27,7 +30,17 @@ const reducer = (state, action) => {
         case reducerCases.GET_ALL_ARTISTS:
             return {
                 ...state,
-                allArtists: action.allArtists,
+                artists: action.artists,
+            };
+        case reducerCases.GET_TOP_ARTISTS:
+            return {
+                ...state,
+                topArtists: action.topArtists,
+            };
+        case reducerCases.GET_ARTIST_DETAILS:
+            return {
+                ...state,
+                artistDetails: action.artistDetails,
             };
         default:
             return state;

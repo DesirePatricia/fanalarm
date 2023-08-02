@@ -15,12 +15,14 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="InstagramApiSharp" Version="1.7.4" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="JSONRequest.Net" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
-    <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     <None Remove="Microsoft.Net.Http" />
     <None Remove="Models\" />
@@ -41,6 +43,11 @@
     <None Remove="InstaSharp" />
     <None Remove="InstagramApiSharp" />
     <None Remove="py_scripts\" />
+    <None Remove="Views\" />
+    <None Remove="System.Data.SqlClient" />
+    <None Remove="Models\SQLServer\" />
+    <None Remove="MySql.Data" />
+    <None Remove="JSONRequest.Net" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +65,8 @@
     <Folder Include="Repositories\Implementations\" />
     <Folder Include="ClientApp\src\utils\" />
     <Folder Include="py_scripts\" />
+    <Folder Include="Views\" />
+    <Folder Include="Models\SQLServer\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

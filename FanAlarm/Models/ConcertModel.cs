@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace FanAlarm.Models
 {
-    public class ArtistModel
+    public class ConcertModel
     {
         public string Name { get; set; }
-        public string Image { get; set; }
-
+        public string Url { get; set; }
     }
 }

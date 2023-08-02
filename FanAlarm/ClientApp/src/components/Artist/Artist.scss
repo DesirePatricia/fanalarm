@@ -1,0 +1,112 @@
+.artist_homewrapper{
+    background-color: #BC4B51;
+}
+
+.artist_fanalarm {
+    font-family: "Futura";
+    font-size: 34px;
+    color: white;
+    text-shadow: -4px 4px #000000;
+    padding: 1%;
+
+    @media(max-width:670px) {
+        font-size: 20px;
+    }
+}
+
+.artist_split{
+    background-color: #FBF2C5;
+    height: 16px;
+    width: 100%;
+}
+
+.artist_concertwrapper{
+    padding: 10%;
+    text-align: center;
+}
+
+.artist_image{
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 18px solid #F4A259;
+    object-fit: cover
+}
+
+.artist_artistname{
+    font-family: "Futura";
+    font-size: 36px;
+    color: #FBF2C5;
+    text-shadow: -2px 2px #F4A259;
+    padding: 1%;
+}
+
+.artist_concertdetails{
+    background-color: #F4A259;
+    border-radius: 40px;
+    margin: 2%;
+
+}
+
+.artist_concerttitle{
+    //background-color: #FBF2C5;
+    border-radius: 40px 40px 0 0;
+    width: 100%;
+    font-family: "Futura";
+    font-size: 30px;
+    color: #BC4B51;
+    font-style: light;
+    font-weight: 300;
+    padding: 3%;
+}
+
+.artist_concertname{
+    color: #FBF2C5;
+    text-align: center;
+    font-size: 30px;
+    font-family: Futura;
+    font-style: normal;
+    font-weight: 500;
+
+}
+
+.artist_venuewrapper{
+    margin-top: 4%;
+}
+
+.artist_concerts{
+    margin: 7%;
+    margin-bottom: 15%;
+    padding-bottom: 15%;
+}
+
+.artist_venuename{
+    color: #FBF2C5;
+    text-align: center;
+    font-size: 24px;
+    font-family: Futura;
+    &:hover {
+            color: #FBF2C5;
+        }
+}
+
+.artist_venuecity{
+    color: #FBF2C5;
+    text-align: center;
+    font-size: 24px;
+    font-family: Futura;
+    &:hover {
+            color: #FBF2C5;
+        }
+}
+
+.artist_venuedate{
+    color: #FBF2C5;
+    text-align: center;
+    font-size: 24px;
+    font-family: Futura;
+    &:hover {
+            color: #FBF2C5;
+        }
+}

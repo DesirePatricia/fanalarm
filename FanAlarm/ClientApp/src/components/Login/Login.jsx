@@ -5,22 +5,29 @@ import loginContainerImage from "../../images/LoginContainer.png";
 import { Formik } from 'formik';
 import { Button, Input, Form, notification, Modal } from 'antd';
 import { putData} from '../../AwsFunctions';
-import * as Yup from 'yup';
-
 
 export default function Login() {
     const key = 'updatable';
-    /*const CLIENT_ID = "2b13915048a841b4b878f0287977a897"
-    const REDIRECT_URI = "https://localhost:3000"
-    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const RESPONSE_TYPE = "token"
-    const SCOPE = "user-top-read"*/
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+    const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+    const AUTH_ENDPOINT = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT;
+    const RESPONSE_TYPE = process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE;
+    const SCOPE = process.env.REACT_APP_SPOTIFY_SCOPE;
 
     const openNotification = (email) => {
         notification.open({
             key,
             message: 'Email added Successfully',
             description: 'Email: ' + email + ' was added.',
+        });
+    };
+
+    const openNotificationError = () => {
+        notification.open({
+            key,
+            message: 'Failed',
+            description: 'Adding Email Failed',
         });
     };
 
@@ -48,67 +55,9 @@ export default function Login() {
                     </div>
                 </div>
                 <div className="loginButtonForm">
-                    {/*<a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
+                    <a className="loginButton btn btn-success btn-lg" href={`${AUTH_ENDPOINT}/?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>
                         Sync with Spotify
                     </a>
-                    */}
-                        <Formik
-                            initialValues={{
-                                email: ''
-                            }}
-                            onSubmit={(values) => {
-                                addDataToDynamoDB(values.email)
-                            }}
-                        >{({
-                            values,
-                            handleChange,
-                            handleSubmit,
-                            onFinishFailed
-                        }) => (
-                            <Form
-                                className="login-form"
-                                onSubmit={handleSubmit}
-                                initialValues={values}
-                                onFinish={handleSubmit}
-                                onFinishFailed={onFinishFailed}
-                            >
-                                <Form.Item
-                                    label="Email"
-                                    name="email"
-                                    className='form-email'
-                                    onChange={handleChange}
-                                    value={values.email}
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your email!',
-                                        },
-                                        {
-                                            message: 'Invalid email address',
-                                            validator: (_, value) => {
-                                                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-                                                    return Promise.reject('Invalid email address');
-                                                } else {
-                                                    return Promise.resolve();
-                                                }
-                                            }
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item
-                                    className='form-button'
-                                    wrapperCol={{
-                                        span: 8,
-                                    }}
-                                >
-                                    <button className="waitlistButton btn btn-success btn-lg" type="primary" htmltype="submit">
-                                        Join Waitlist
-                                    </button>
-                                </Form.Item>
-                            </Form>)}
-                        </Formik>
                 </div>
         </div>
         </>

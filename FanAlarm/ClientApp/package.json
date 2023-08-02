@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.4",
     "antd": "^5.4.7",
     "aws-sdk": "^2.1374.0",
+    "axios": "^1.4.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "~4.6.1",
     "firebase": "^9.21.0",
@@ -14,11 +19,12 @@
     "oidc-client": "~1.11.5",
     "react": "~16.14.0",
     "react-dom": "~16.14.0",
-    "react-router": "~5.2.1",
+    "react-router": "^6.14.2",
     "react-router-bootstrap": "^0.25.0",
-    "react-router-dom": "~5.3.0",
+    "react-router-dom": "^6.14.2",
     "reactstrap": "~8.10.1",
     "rimraf": "^3.0.2",
+    "util": "^0.12.5",
     "yup": "^1.2.0"
   },
   "devDependencies": {

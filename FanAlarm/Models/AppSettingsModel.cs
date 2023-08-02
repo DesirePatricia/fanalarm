@@ -3,6 +3,6 @@ namespace FanAlarm.Models
 {
     public class AppSettingsModel
     {
-        public string SpotifyAPI { get; set; }
+        public string SqlServerConnection { get; set; }
     }
 }
