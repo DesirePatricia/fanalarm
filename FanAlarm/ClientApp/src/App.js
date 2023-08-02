@@ -1,16 +1,14 @@
-import React, {useEffect} from 'react';
-import Login from "./components/Login/Login"
-import Dashboard from "./components/Dashboard/Dashboard"
-import Feedback from "./components/Feedback/Feedback"
-import { reducerCases } from "./utils/Constants";
-import { useStateProvider } from "./utils/StateProvider";// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Dashboard from './components/Dashboard/Dashboard';
+import Feedback from './components/Feedback/Feedback';
+import { reducerCases } from './utils/Constants';
+import { useStateProvider } from './utils/StateProvider';
 import Artist from './components/Artist/Artist';
 import AllArtists from './components/AllArtists/AllArtists';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -24,38 +22,45 @@ const firebaseConfig = {
     measurementId: "G-KDS4ZTRPW3"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 function App() {
-
     const [{ token }, dispatch] = useStateProvider();
+    const navigate = useNavigate();
+
     useEffect(() => {
+        // Initialize Firebase app and analytics
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // Token extraction logic from URL hash
         const hash = window.location.hash;
         if (hash) {
-            const token = hash.substring(1).split("&")[0].split("=")[1];
+            const token = hash.substring(1).split('&')[0].split('=')[1];
             if (token) {
                 dispatch({ type: reducerCases.SET_TOKEN, token });
+            } else {
+                if (location.pathname == '/dashboard') {
+                    navigate('/login', { replace: true });
+                }
+            }
+        } else {
+            if (location.pathname == '/dashboard') {
+                navigate('/login', { replace: true });
             }
         }
-    }, [dispatch, token]);
-
+    }, [dispatch, navigate]);
 
     return (
-        <Router>
-            <Switch>
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/" render={() => (
-                    token ? <Dashboard code={token} /> : <Redirect to="/login" />
-                )} />
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/artist/:name" component={Artist} />
-                <Route path="/allartists" component={AllArtists} />
-                <Route path="/feedback" component={Feedback} />
-            </Switch>
-        </Router>
+            <Routes>
+                <Route path="/login/*" element={<Login />} />
+                {/* Render the Dashboard component directly */}
+                <Route path="/" element={<Login/>} />
+                {/* Render the Dashboard component directly */}
+                <Route path="/dashboard" element={<Dashboard/>} />
+                <Route path="/artist/:name" element={<Artist />} />
+                <Route path="/allartists" element={<AllArtists />} />
+                <Route path="/feedback" element={<Feedback />} />
+            </Routes>
     );
 }
 
-export default App
+export default App;

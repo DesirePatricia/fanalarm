@@ -27,6 +27,7 @@ export default function TopArtists() {
             } else {
                 try {
                     setLoading(true);
+                    console.log(token);
                     const response = await axios.get(
                         "https://api.spotify.com/v1/me/top/artists?limit=50",
                         {

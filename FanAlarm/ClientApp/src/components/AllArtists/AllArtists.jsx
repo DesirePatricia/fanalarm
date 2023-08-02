@@ -1,6 +1,7 @@
 import './AllArtists.css';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { reducerCases } from "../../utils/Constants";
 import { useStateProvider } from "../../utils/StateProvider";
 import Grid from '@mui/material/Grid';
@@ -10,6 +11,7 @@ import { Input, Form, notification } from 'antd';
 
 export default function AllArtists() {
     const key = 'updatable';
+    const navigate = useNavigate();
     const [{ token, artists }, dispatch] = useStateProvider();
     const [artistsNum, setArtistsNum] = useState(50);
     const [artistsAll, setArtistsAll] = useState([]);
@@ -91,6 +93,7 @@ export default function AllArtists() {
             const userResult = await postUserData(userData);
             if(userResult){
                 openNotification();
+                navigate('/feedback', { replace: true });
             }
             else{
                 openErrorNotification();
