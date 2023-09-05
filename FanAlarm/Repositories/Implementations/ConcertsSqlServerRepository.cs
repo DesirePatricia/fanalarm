@@ -22,7 +22,6 @@ namespace FanAlarm.Repositories.Implementations
         {
             _configConnectionString = appSetting.Value.SqlServerConnection;
         }
-
         public async Task<int> AddArtistAsync(string stringConn, string artistName)
         {
             try
@@ -635,6 +634,57 @@ namespace FanAlarm.Repositories.Implementations
             }
 
             return -1;
+        }
+
+        public async Task<List<String>> SearchArtistAsync(string stringConn, string query)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(stringConn))
+                {
+                    var commandStr = "SELECT DISTINCT * " +
+                                     "FROM attractions " +
+                                     "WHERE attractions.attractions_name LIKE @artistName";
+
+                    commandStr = String.Format(commandStr, query);
+                    var cmd = new MySqlCommand(commandStr, connection);
+                    cmd.Parameters.AddWithValue("@artistName", "%"+query+"%");
+
+
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+                    cmd.CommandTimeout = _commandTimeOut;
+                    var dataReader = await cmd.ExecuteReaderAsync();
+
+                    var attractions_name = String.Empty;
+                    List<string> searchResults = new List<string>();
+                    while (dataReader.Read())
+                    {
+
+                        attractions_name = Convert.ToString(dataReader["attractions_name"]);
+                        if (attractions_name != null && attractions_name != String.Empty)
+                        {
+                            searchResults.Add(attractions_name);
+                        }
+
+                    }
+
+                    
+
+
+
+                    connection.Close();
+                    return searchResults;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return null;
         }
 
     }

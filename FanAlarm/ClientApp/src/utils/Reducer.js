@@ -8,6 +8,7 @@ export const initialState = {
     artists: [],
     topArtists: [],
     artistDetails: [],
+    artistSearch: [],
 };
 
 const reducer = (state, action) => {
@@ -41,6 +42,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 artistDetails: action.artistDetails,
+            };
+
+        case reducerCases.GET_SEARCH_ARTIST:
+            return {
+                ...state,
+                artistSearch: action.artistSearch,
             };
         default:
             return state;

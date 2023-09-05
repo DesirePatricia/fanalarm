@@ -38,6 +38,7 @@ export default function TopArtists() {
                         }
                     );
                     const { items } = response.data;
+                    console.log(response.data);
                     let counter = 1;
                     let counterAll = 1;
                     const baseURL = window.location.origin + "/api/getartist/";
@@ -83,7 +84,7 @@ export default function TopArtists() {
 
     return (
         <div className="topArtists-wrapper">
-            <div className="topArtists-title">YOUR TOP ARTISTS</div>
+            <h1 className="topArtists-title">YOUR TOP ARTISTS</h1>
             <div className="topArtists-subtitle">in concert</div>
             <ul className="topArtists-lists">
                 {loading ? (

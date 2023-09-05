@@ -41,6 +41,13 @@ namespace FanAlarm.Services.Implementations
             return result;
         }
 
+        public async Task<List<String>> SearchArtistAsync(string stringConn, string query)
+        {
+            var result = await _concertsSqlServerRepository.SearchArtistAsync(stringConn, query);
+
+            return result;
+        }
+
         public async Task<Boolean> PostUserAsync(string stringConn, UserModel user)
         {
             List<int> ArtistIdsFinal = new List<int>();

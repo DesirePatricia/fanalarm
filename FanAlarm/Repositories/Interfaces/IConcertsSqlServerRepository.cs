@@ -22,6 +22,7 @@ namespace FanAlarm.Repositories.Interfaces
         Task<Boolean> AddArtistsEmailAsync(string stringConn, List<int> artistIds, int emailId);
         Task<int> AddArtistNumberAsync(string stringConn, int artistId, int numberId);
         Task<Boolean> AddArtistsNumberAsync(string stringConn, List<int> artistIds, int numberId);
+        Task<List<String>> SearchArtistAsync(string stringConn, string query);
 
     }
 }

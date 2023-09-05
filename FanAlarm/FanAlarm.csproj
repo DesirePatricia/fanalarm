@@ -18,6 +18,8 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="JSONRequest.Net" Version="1.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.32.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +50,8 @@
     <None Remove="Models\SQLServer\" />
     <None Remove="MySql.Data" />
     <None Remove="JSONRequest.Net" />
+    <None Remove="Microsoft.IdentityModel.Tokens" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
 
   <ItemGroup>

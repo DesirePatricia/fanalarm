@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import Feedback from './components/Feedback/Feedback';
+import SearchArtists from './components/SearchArtists/SearchArtists';
 import { reducerCases } from './utils/Constants';
 import { useStateProvider } from './utils/StateProvider';
 import Artist from './components/Artist/Artist';
@@ -25,6 +26,7 @@ const firebaseConfig = {
 function App() {
     const [{ token }, dispatch] = useStateProvider();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         // Initialize Firebase app and analytics
@@ -43,9 +45,9 @@ function App() {
                 }
             }
         } else {
-            if (location.pathname == '/dashboard') {
-                navigate('/login', { replace: true });
-            }
+            //if (location.pathname == '/dashboard') {
+            //    navigate('/login', { replace: true });
+            //}
         }
     }, [dispatch, navigate]);
 
@@ -55,9 +57,10 @@ function App() {
                 {/* Render the Dashboard component directly */}
                 <Route path="/" element={<Login/>} />
                 {/* Render the Dashboard component directly */}
-                <Route path="/dashboard" element={<Dashboard/>} />
+                <Route path="/dashboard/*" element={<Dashboard/>} />
                 <Route path="/artist/:name" element={<Artist />} />
                 <Route path="/allartists" element={<AllArtists />} />
+                <Route path="/searchartists" element={<SearchArtists />} />
                 <Route path="/feedback" element={<Feedback />} />
             </Routes>
     );
