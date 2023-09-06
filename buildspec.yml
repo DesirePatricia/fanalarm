@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 5.0
+  build:
+    commands:
+      - dotnet restore
+      - dotnet build
+  post_build:
+    commands:
+      - dotnet publish -c Release -o ./publish
+
+artifacts:
+  files: ./publish/**
+  discard-paths: yes
+
+cache:
+  paths:
+    - ~/.nuget/packages
