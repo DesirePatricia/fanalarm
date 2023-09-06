@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  fanalarm:
-    image: ${DOCKER_REGISTRY-}fanalarm
-    build:
-      context: .
-      dockerfile: FanAlarm/Dockerfile

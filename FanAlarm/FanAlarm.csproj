@@ -22,6 +22,7 @@
     <PackageReference Include="JSONRequest.Net" Version="1.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.32.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.2" />
+    <PackageReference Include="Docker.DotNet" Version="3.125.15" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +55,7 @@
     <None Remove="JSONRequest.Net" />
     <None Remove="Microsoft.IdentityModel.Tokens" />
     <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Docker.DotNet" />
   </ItemGroup>
 
   <ItemGroup>
