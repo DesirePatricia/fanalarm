@@ -14,6 +14,8 @@ phases:
   post_build:
     commands:
       - dotnet publish -c Release -o ./publish
+      - aws elasticbeanstalk create-application-version --application-name FanAlarm --version-label $CODEBUILD_RESOLVED_SOURCE_VERSION --source-bundle S3Bucket=$S3_BUCKET_NAME,S3Key=$CODEBUILD_RESOLVED_SOURCE_VERSION.zip
+      - aws elasticbeanstalk update-environment --environment-name fanalarm-env --version-label $CODEBUILD_RESOLVED_SOURCE_VERSION
 
 artifacts:
   files: ./publish/**
