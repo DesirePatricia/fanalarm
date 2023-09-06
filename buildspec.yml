@@ -6,6 +6,9 @@ phases:
       dotnet: 5.0
   build:
     commands:
+      - cd fanalarm/clientapp
+      - npm install
+      - cd ../../
       - dotnet restore
       - dotnet build
   post_build:
