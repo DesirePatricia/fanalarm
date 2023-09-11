@@ -22,6 +22,7 @@ jobs:
       - name: Build with dotnet
         run: |
           cd FanAlarm  # Replace with the actual path to your project directory
+          npm install --force
           dotnet build FanAlarm.csproj --configuration Release
 
       - name: dotnet publish
