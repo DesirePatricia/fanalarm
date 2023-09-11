@@ -27,11 +27,7 @@ jobs:
           dotnet build FanAlarm.csproj --configuration Release
 
       - name: dotnet publish
-        run: |
-          cd FanAlarm/ClientApp  
-          npm install --force
-          cd ../
-          dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run:  dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
