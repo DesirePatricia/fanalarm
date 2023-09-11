@@ -28,7 +28,7 @@ jobs:
 
       - name: dotnet publish
         run: |
-          cd ClientApp  
+          cd FanAlarm/ClientApp  
           npm install --force
           cd ../
           dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
