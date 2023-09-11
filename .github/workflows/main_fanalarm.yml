@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'fanalarm'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_959F390544DD4535B5672BA8B1A9D22C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7895B97370264B789459192A4FB33681 }}
           package: .
