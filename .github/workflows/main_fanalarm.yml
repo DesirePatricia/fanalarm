@@ -19,15 +19,13 @@ jobs:
           dotnet-version: '6.0.x'
           include-prerelease: true
 
-      - name: Build with dotnet
+      - name: Build/Publish with dotnet
         run: |
           cd FanAlarm/ClientApp 
           npm install --force
           cd ../
           dotnet build FanAlarm.csproj --configuration Release
-
-      - name: dotnet publish
-        run:  dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
