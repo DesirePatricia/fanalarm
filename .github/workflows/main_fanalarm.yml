@@ -19,20 +19,18 @@ jobs:
           dotnet-version: '6.0.x'
           include-prerelease: true
 
-      - name: Build with dotnet
+      - name: Change directory to ClientApp
+        run: cd FanAlarm/ClientApp
+
+      - name: Install npm dependencies
+        run: npm install --force
+
+      - name: Return to the previous directory
+        run: cd ../
+
+      - name: Build and publish with dotnet
         run: |
-          cd FanAlarm/ClientApp 
-          npm install --force
-          cd ../
           dotnet build FanAlarm.csproj --configuration Release
-      - name: Clean workspace
-        run: git clean -ffdx    
-          
-      - name: Publish with dotnet
-        run: |
-          cd FanAlarm/ClientApp 
-          npm install --force
-          cd ../
           dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
