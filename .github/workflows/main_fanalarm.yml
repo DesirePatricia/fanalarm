@@ -21,14 +21,16 @@ jobs:
 
       - name: Build with dotnet
         run: |
-          cd FanAlarm/ClientApp  # Replace with the actual path to your project directory
+          cd FanAlarm/ClientApp 
           npm install --force
           cd ../
           dotnet build FanAlarm.csproj --configuration Release
 
       - name: dotnet publish
         run: |
-          cd FanAlarm   # Replace with the actual path to your project directory
+          cd FanAlarm/ClientApp  
+          npm install --force
+          cd ../
           dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
