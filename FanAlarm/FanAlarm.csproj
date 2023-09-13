@@ -5,7 +5,6 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-    <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
     <UserSecretsId>f9946322-9f1d-4144-a316-45a0f67308c7</UserSecretsId>
@@ -36,7 +35,6 @@
     <None Remove="Exceptions\" />
     <None Remove="Api\" />
     <None Remove="Services\" />
-    <None Remove="ClientApp\src\components\" />
     <None Remove="Services\Interfaces\" />
     <None Remove="Services\Implementations\" />
     <None Remove="Repositories\" />
@@ -44,7 +42,6 @@
     <None Remove="Repositories\Implementations\" />
     <None Remove="AutoMapper" />
     <None Remove="Newtonsoft.Json" />
-    <None Remove="ClientApp\src\utils\" />
     <None Remove="InstaSharp" />
     <None Remove="InstagramApiSharp" />
     <None Remove="py_scripts\" />
@@ -65,13 +62,11 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Api\" />
     <Folder Include="Services\" />
-    <Folder Include="ClientApp\src\components\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Repositories\" />
     <Folder Include="Repositories\Interfaces\" />
     <Folder Include="Repositories\Implementations\" />
-    <Folder Include="ClientApp\src\utils\" />
     <Folder Include="py_scripts\" />
     <Folder Include="Views\" />
     <Folder Include="Models\SQLServer\" />
