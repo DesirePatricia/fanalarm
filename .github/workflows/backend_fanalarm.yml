@@ -23,10 +23,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build FanAlarm.csproj --configuration Release
+        run: dotnet build FanAlarm/FanAlarm.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish FanAlarm/FanAlarm.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
