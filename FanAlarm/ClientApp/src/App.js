@@ -37,17 +37,20 @@ function App() {
             const token = hash.substring(1).split('&')[0].split('=')[1];
             if (token) {
                 dispatch({ type: reducerCases.SET_TOKEN, token });
+                // Remove token from URL
+                window.history.replaceState(null, null, window.location.pathname);
             } else {
-                if (location.pathname == '/dashboard') {
+                if (location.pathname === '/dashboard') {
                     navigate('/login', { replace: true });
                 }
             }
         } else {
-            if (location.pathname == '/dashboard') {
+            if (location.pathname === '/dashboard') {
                 navigate('/login', { replace: true });
             }
         }
     }, [dispatch, navigate]);
+
 
     return (
             <Routes>

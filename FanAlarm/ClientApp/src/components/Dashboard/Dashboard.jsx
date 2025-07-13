@@ -4,14 +4,13 @@ import TopArtists from '../TopArtists/TopArtists';
 import "./Dashboard.css";
 
 export default function Dashboard() {
-    const [{ token }] = useStateProvider();
+    const [{ token }, dispatch] = useStateProvider();
 
     const logout = () => {
-        // If you want to clear global token, dispatch an action here instead
-        // For example: dispatch({ type: reducerCases.SET_TOKEN, token: "" })
+        dispatch({ type: reducerCases.SET_TOKEN, token: "" });
         window.localStorage.removeItem("token");
-        // You may also want to navigate to login or clear your global state
-    }
+        // Optionally navigate to login page here
+    };
 
     return (
         <>
