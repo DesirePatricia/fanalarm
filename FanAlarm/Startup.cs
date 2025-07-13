@@ -70,6 +70,17 @@ namespace FanAlarm
                 builder.Run(async ctx => await ctx.Response.WriteAsync("OK"));
             });
 
+            app.Use(async (context, next) =>
+            {
+                var host = context.Request.Host.Host;
+                if (host == "fanalarm.ca")
+                {
+                    var newUrl = $"https://www.fanalarm.ca{context.Request.Path}{context.Request.QueryString}";
+                    context.Response.Redirect(newUrl, permanent: true);
+                    return;
+                }
+                await next();
+            });
 
             app.UseRouting();
 
