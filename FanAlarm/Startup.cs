@@ -12,7 +12,8 @@ using FanAlarm.Services.Interfaces;
 using FanAlarm.Services.Implementations;
 using FanAlarm.Repositories.Interfaces;
 using FanAlarm.Repositories.Implementations;
-
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace FanAlarm
 {
@@ -48,7 +49,7 @@ namespace FanAlarm
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -72,17 +73,17 @@ namespace FanAlarm
 
             app.Use(async (context, next) =>
             {
-                var host = context.Request.Host.Host;
-                if (host == "fanalarm.ca")
+                logger.LogInformation("Incoming Host: " + context.Request.Host.Host);
+
+                if (context.Request.Host.Host.Equals("fanalarm.ca", StringComparison.OrdinalIgnoreCase))
                 {
                     var newUrl = $"https://www.fanalarm.ca{context.Request.Path}{context.Request.QueryString}";
                     context.Response.Redirect(newUrl, permanent: true);
                     return;
                 }
-                Console.WriteLine("Host: " + context.Request.Host.Host); // Debugging
+
                 await next();
             });
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
