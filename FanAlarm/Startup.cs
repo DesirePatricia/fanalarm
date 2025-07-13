@@ -21,6 +21,16 @@ namespace FanAlarm
     {
         private readonly IWebHostEnvironment _env;
 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            webBuilder.UseStartup<Startup>()
+                      .UseUrls($"http://0.0.0.0:{port}");
+        });
+
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
