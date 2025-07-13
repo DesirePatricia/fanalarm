@@ -1,37 +1,24 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React from 'react';
+import { useStateProvider } from '../../utils/StateProvider';
 import TopArtists from '../TopArtists/TopArtists';
 import "./Dashboard.css";
 
 export default function Dashboard() {
-    const [token, setToken] = useState("");
-
-    useEffect(() => {
-        // Extract token from URL hash
-        const hash = window.location.hash.substring(1);
-        const params = new URLSearchParams(hash);
-        const _token = params.get("access_token");
-
-        if (_token) {
-            setToken(_token);
-            // Optionally, remove the token from URL for cleanliness
-            window.history.replaceState(null, null, window.location.pathname);
-            // Also save to localStorage if you want to persist it
-            window.localStorage.setItem("token", _token);
-        }
-    }, []);
+    const [{ token }] = useStateProvider();
 
     const logout = () => {
-        setToken("");
+        // If you want to clear global token, dispatch an action here instead
+        // For example: dispatch({ type: reducerCases.SET_TOKEN, token: "" })
         window.localStorage.removeItem("token");
-    };
+        // You may also want to navigate to login or clear your global state
+    }
 
     return (
         <>
             <div className='topArtists-header'>
                 <div className='topArtists-header-title'>Fan Alarm</div>
-                {token && <button onClick={logout}>Logout</button>}
             </div>
-            <TopArtists token={token} />
+            <TopArtists />
             <div className='topArtists-footer'>
                 <div className='footer-fanalarm-title'>Fan Alarm</div>
             </div>

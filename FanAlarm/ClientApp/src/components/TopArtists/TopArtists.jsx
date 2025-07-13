@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 import plane from '../../images/Paperplane.svg';
 
 
-export default function TopArtists({ token }) {
-    const [{ topArtists }, dispatch] = useStateProvider();
+export default function TopArtists() {
+    const [{ token, topArtists }, dispatch] = useStateProvider();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
