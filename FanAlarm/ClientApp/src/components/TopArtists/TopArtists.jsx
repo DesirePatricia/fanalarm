@@ -10,7 +10,7 @@ import plane from '../../images/Paperplane.svg';
 
 
 export default function TopArtists({ token }) {
-    const [{ token, topArtists }, dispatch] = useStateProvider();
+    const [{ topArtists }, dispatch] = useStateProvider();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
