@@ -3,6 +3,7 @@ using FanAlarm;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +64,12 @@ namespace FanAlarm
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.MapWhen(context => context.Request.Path == "/", builder =>
+            {
+                builder.Run(async ctx => await ctx.Response.WriteAsync("OK"));
+            });
+
 
             app.UseRouting();
 
