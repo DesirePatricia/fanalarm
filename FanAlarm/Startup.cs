@@ -79,6 +79,7 @@ namespace FanAlarm
                     context.Response.Redirect(newUrl, permanent: true);
                     return;
                 }
+                Console.WriteLine("Host: " + context.Request.Host.Host); // Debugging
                 await next();
             });
 
