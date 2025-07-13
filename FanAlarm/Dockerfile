@@ -1,22 +1,20 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+# 🔧 Build Stage
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
-WORKDIR /src
-COPY ["FanAlarm/FanAlarm.csproj", "FanAlarm/"]
-RUN dotnet restore "FanAlarm/FanAlarm.csproj"
-COPY . .
-WORKDIR "/src/FanAlarm"
-RUN dotnet build "FanAlarm.csproj" -c Release -o /app/build
+# Copy everything and restore
+COPY . ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "FanAlarm.csproj" -c Release -o /app/publish
+# Publish the app
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+# 🚀 Runtime Stage
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/out ./
+
 ENTRYPOINT ["dotnet", "FanAlarm.dll"]
+
