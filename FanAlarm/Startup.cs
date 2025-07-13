@@ -32,49 +32,31 @@ namespace FanAlarm
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            var appSettingsModel = appSettingsSection.Get<AppSettingsModel>();
-            services.Configure<AppSettingsModel>(appSettingsSection);
             services.AddControllersWithViews();
+
+            services.Configure<AppSettingsModel>(Configuration.GetSection("AppSettings"));
+
             services.AddScoped<IConcertsSqlServerRepository, ConcertsSqlServerRepository>();
             services.AddScoped<IConcertsSqlServerService, ConcertsSqlServerService>();
-            services.AddSingleton<IConcertsSqlServerRepository, ConcertsSqlServerRepository>();
-            services.AddSingleton<IConcertsSqlServerService, ConcertsSqlServerService>();
-            // In production, the React files will be served from this directory
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.MapWhen(context => context.Request.Path == "/", builder =>
-            {
-                builder.Run(async ctx => await ctx.Response.WriteAsync("OK"));
-            });
-
+            // Optional: Force redirect to www domain
             app.Use(async (context, next) =>
             {
-                logger.LogInformation("Incoming Host: " + context.Request.Host.Host);
-
                 if (context.Request.Host.Host.Equals("fanalarm.ca", StringComparison.OrdinalIgnoreCase))
                 {
                     var newUrl = $"https://www.fanalarm.ca{context.Request.Path}{context.Request.QueryString}";
@@ -84,6 +66,7 @@ namespace FanAlarm
 
                 await next();
             });
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -93,6 +76,7 @@ namespace FanAlarm
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            // Serve React SPA
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
@@ -102,6 +86,8 @@ namespace FanAlarm
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+
         }
     }
 }
